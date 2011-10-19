@@ -1,14 +1,13 @@
-call pathogen#infect()
 call pathogen#helptags()
-set nocompatible
-
-filetype on
-filetype plugin on
-filetype indent on
-
+call pathogen#infect()
 syntax on
+filetype plugin indent on
+
+set number
 
 set hidden
+
+set nocompatible
 
 set wildmenu
 
