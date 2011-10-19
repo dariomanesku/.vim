@@ -7,3 +7,6 @@
 [submodule "bundle/vim256-color"]
 	path = bundle/vim256-color
 	url = http://github.com/noah/vim256-color.git
+[submodule "bundle/minibufexpl"]
+	path = bundle/minibufexpl
+	url = http://github.com/fholgado/minibufexpl.vim.git
