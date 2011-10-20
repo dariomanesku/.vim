@@ -10,3 +10,6 @@
 [submodule "bundle/minibufexpl"]
 	path = bundle/minibufexpl
 	url = http://github.com/fholgado/minibufexpl.vim.git
+[submodule "bundle/xptemplate"]
+	path = bundle/xptemplate
+	url = http://github.com/drmingdrmer/xptemplate.git
