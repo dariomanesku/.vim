@@ -17,3 +17,4 @@ nmap <silent> ,ev :e $MYVIMRC<cr>
 nmap <silent> ,sv :so $MYVIMRC<cr>
 
 set virtualedit=all
+colorscheme xoria256
