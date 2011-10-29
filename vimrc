@@ -12,6 +12,9 @@ set hidden
 set nocompatible
 
 set wildmenu
+set wildmode=list:longest "shell like behavior
+
+set title
 
 set hlsearch
 
@@ -42,3 +45,29 @@ let g:gundo_width = 60
 let g:gundo_preview_height = 40
 let g:gundo_right = 1
 let g:gundo_close_on_revert = 0 "set this to 1 to automatically close the Gundo windows when reverting.
+
+"ctags settings
+set tags=tags;/
+
+"remap ` to '
+nnoremap ' `
+nnoremap ` '
+
+"map leader to ,
+let mapleader = ","
+
+"store temporary files in a central folder 
+set backupdir=~/.vim/tmp
+set directory=~/.vim/tmp
+
+"scroll faster
+nnoremap <C-e> 3<C-e>
+nnoremap <C-y> 3<C-y>
+
+"clear highlight fast
+nmap <silent> <leader>n :silent :nohlsearch<CR>
+
+"show non-visual chars
+set listchars=tab:>-,trail:',eol:$
+nmap <silent> <leader>s :set nolist!<CR>
+

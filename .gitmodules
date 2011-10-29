@@ -25,3 +25,9 @@
 [submodule "bundle/gundo"]
 	path = bundle/gundo
 	url = http://github.com/sjl/gundo.vim.git
+[submodule "bundle/protodef"]
+	path = bundle/protodef
+	url = http://github.com/derekwyatt/vim-protodef.git
+[submodule "bundle/tcomment"]
+	path = bundle/tcomment
+	url = http://github.com/tomtom/tcomment_vim.git
