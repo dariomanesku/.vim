@@ -1,3 +1,8 @@
+let g:pathogen_disabled = []
+call add(g:pathogen_disabled, "supertab")
+"call add(g:pathogen_disabled, "0scan")
+call add(g:pathogen_disabled, "clang_complete")
+
 call pathogen#infect()
 call pathogen#helptags()
 syntax on
@@ -15,6 +20,7 @@ set wildmenu
 set wildmode=list:longest "shell like behavior
 
 set title
+set noerrorbells
 
 set hlsearch
 
@@ -71,3 +77,21 @@ nmap <silent> <leader>n :silent :nohlsearch<CR>
 set listchars=tab:>-,trail:',eol:$
 nmap <silent> <leader>s :set nolist!<CR>
 
+"autoexit preview window when exiting insert mode
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+"omni completion
+set completeopt=menu,preview
+
+"customize identation
+set tabstop=4
+set autoindent
+set copyindent
+set shiftwidth=4
+set smarttab
+
+" Easy window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l

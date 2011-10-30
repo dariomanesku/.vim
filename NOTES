@@ -1,3 +1,7 @@
 
 //TODO:
 -conque plugin not working really good. remove?
+-histwin vs gundo ! (diff the selected undo-branch with the current version)
+-buffergrep: grep all buffers wanted, not go to first match in all buffers. Try to find how to do both commands.
+
+"if you need shell in vim, install: vimproc & vimshell

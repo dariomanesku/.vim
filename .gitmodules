@@ -31,3 +31,12 @@
 [submodule "bundle/tcomment"]
 	path = bundle/tcomment
 	url = http://github.com/tomtom/tcomment_vim.git
+[submodule "bundle/histwin"]
+	path = bundle/histwin
+	url = http://github.com/chrisbra/histwin.vim
+[submodule "bundle/supertab"]
+	path = bundle/supertab
+	url = http://github.com/ervandew/supertab.git
+[submodule "bundle/0scan"]
+	path = bundle/0scan
+	url = http://github.com/vim-scripts/0scan.git
