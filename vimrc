@@ -17,7 +17,7 @@ set hidden
 set nocompatible
 
 set wildmenu
-set wildmode=list:longest "shell like behavior
+set wildmode=list:longest,full "shell like behavior
 
 set title
 set noerrorbells
@@ -95,3 +95,10 @@ map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
+
+"current directory is always matching the content of the active window
+set autochdir
+
+"use console dialogs instead of popup dialogs for simple choices
+set guioptions+=c "<<< test
+
