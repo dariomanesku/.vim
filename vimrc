@@ -52,6 +52,7 @@ let g:gundo_preview_height = 40
 let g:gundo_right = 1
 let g:gundo_close_on_revert = 0 "set this to 1 to automatically close the Gundo windows when reverting.
 
+
 "ctags settings
 set tags=tags;/
 
@@ -72,6 +73,9 @@ nnoremap <C-y> 3<C-y>
 
 "clear highlight fast
 nmap <silent> <leader>n :silent :nohlsearch<CR>
+
+"command-t settings
+silent! nnoremap <unique> <silent> <Leader>g :CommandT<CR> 
 
 "show non-visual chars
 set listchars=tab:>-,trail:',eol:$
