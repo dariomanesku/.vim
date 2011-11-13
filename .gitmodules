@@ -46,3 +46,12 @@
 [submodule "bundle/zcommand-t"]
 	path = bundle/zcommand-t
 	url = http://github.com/wincent/Command-T.git
+[submodule "bundle/vim-surround"]
+	path = bundle/vim-surround
+	url = http://github.com/tpope/vim-surround.git
+[submodule "bundle/srcexpl"]
+	path = bundle/srcexpl
+	url = http://github.com/vim-scripts/Source-Explorer-srcexpl.vim
+[submodule "bundle/buftabs"]
+	path = bundle/buftabs
+	url = http://github.com/vim-scripts/buftabs
