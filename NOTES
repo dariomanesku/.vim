@@ -7,3 +7,7 @@
 "if you need shell in vim, install: vimproc & vimshell
 
 scmdiff submodule not working..
+
+------> resolve waiting for key
+		add fuzzyfinder
+		add infoline

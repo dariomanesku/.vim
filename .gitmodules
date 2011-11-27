@@ -55,3 +55,12 @@
 [submodule "bundle/buftabs"]
 	path = bundle/buftabs
 	url = http://github.com/vim-scripts/buftabs
+[submodule "bundle/vim-protodef"]
+	path = bundle/vim-protodef
+	url = http://github.com/derekwyatt/vim-protodef.git
+[submodule "bundle/crefvim"]
+	path = bundle/crefvim
+	url = http://github.com/vim-scripts/CRefVim.git
+[submodule "bundle/showmarks"]
+	path = bundle/showmarks
+	url = http://github.com/vim-scripts/ShowMarks.git
