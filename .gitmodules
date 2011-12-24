@@ -69,4 +69,4 @@
 	url = http://github.com/sjbach/lusty.git
 [submodule "bundle/css-color"]
 	path = bundle/css-color
-	url = http://github.com/skammer/vim-css-color.git
+	url = http://github.com/ap/vim-css-color.git
