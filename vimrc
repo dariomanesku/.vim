@@ -38,14 +38,16 @@ set cindent
 set smartindent
 
 "customize identation
-set tabstop=4
+set tabstop=4 
+set softtabstop=4
+set shiftwidth=4 
+set noexpandtab
 set autoindent
 set copyindent
-set shiftwidth=4
 set smarttab
 
 "current directory is always matching the content of the active window
-"set autochdir
+set autochdir
 set autoread "auto reload file contents on external change
 
 "use console dialogs instead of popup dialogs for simple choices
@@ -84,16 +86,27 @@ set backupdir=~/.vim/tmp
 set directory=~/.vim/tmp 
 " ========================================================================
 
+" ========================================================================
+" Buftabs
+" ========================================================================
+set laststatus=2
+"let g:buftabs_in_statusline = 1
+let g:buftabs_only_basename = 1
+" ======================================================================== 
 
 " ========================================================================
 " Status line
 " ========================================================================
 set statusline=
-set statusline +=%{buftabs#statusline()} 
-set statusline +=%=
-set statusline +=%=%5l%*   " current line
-set statusline +=/%L%*     " total lines
-set statusline +=%4c\ %*   " column number
+"set statusline +=%{buftabs#statusline()} 
+set statusline +=%t          " filename
+set statusline +=%m          " modified
+set statusline +=%r          " read-only
+set statusline +=%=          " delimiter
+set statusline +=%p%%        " percent
+set statusline +=%=%5l%*     " current line
+set statusline +=/%L%*       " total lines
+set statusline +=%4c\ %*     " column number
 set statusline +=0x%04B\%*\  " character under cursor
 " ========================================================================
 
@@ -104,7 +117,7 @@ set pastetoggle=<F7> "TODO: this is just temporary. Remember to change this.
 
 "show non-visual chars
 set listchars=tab:>-,trail:',eol:$
-nmap <silent> <leader>s :set nolist!<CR> 
+nmap <silent> <leader>n :set nolist!<CR> 
 
 nmap <silent> ,ev :e $MYVIMRC<cr>
 nmap <silent> ,sv :so $MYVIMRC<cr>
@@ -140,7 +153,7 @@ let g:gundo_width = 60
 let g:gundo_preview_height = 40
 let g:gundo_right = 1
 let g:gundo_close_on_revert = 0 "set this to 1 to automatically close the Gundo windows when reverting.
-let g:gundo_preview_bottom = 1
+"let g:gundo_preview_bottom = 1
 " ======================================================================== 
 
 " ========================================================================
@@ -172,13 +185,6 @@ let g:CommandTMaxHeight = 30
 let NERDTreeWinPos='right'
 let NERDTreeWinSize=30 
 " ========================================================================
-
-" ========================================================================
-" Buftabs
-" ========================================================================
-set laststatus=2
-let g:buftabs_in_statusline = 1
-" ======================================================================== 
 
 " ======================================================================== 
 " Taglist (Tlist)
