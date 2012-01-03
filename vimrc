@@ -62,7 +62,7 @@ map <C-l> <C-w>l
 "use hlsearch but don't enable it by default
 set hlsearch
 nohlsearch
-nmap <silent> <leader>h :silent :nohlsearch<CR>
+nmap <silent> <leader>, :silent :nohlsearch<CR>
 
 set virtualedit=all "enable cursor navigation in virtual space
 
@@ -76,16 +76,79 @@ set wildmode=list:longest,full " shell like behavior
 "disable preview scratch window
 set completeopt=menu,menuone,longest
 
+"make default clipboard
+set clipboard=unnamedplus
 
 "remap ` to ' (it's more useful this way)
 nnoremap ' `
 nnoremap ` '
+
+"don't accidently hit this when using visual line selection
+map K k 
+
+"insert timestamp (TODO: output some different time format)
+nmap <F9> a<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
+imap <F9> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
+
+"make folding/unfolding easier and faster
+set foldmethod=syntax
+set foldnestmax=1
+set foldlevel=1
+nnoremap <space> za
 
 "store temporary files in a central folder 
 set backupdir=~/.vim/tmp
 set directory=~/.vim/tmp 
 " ========================================================================
 
+" ========================================================================
+" CScope
+" ========================================================================
+if has("cscope")
+"use cscope by default
+set cscopetag
+set csto=0 "check scope first, then ctags
+"set cscopeverbose
+
+" add any cscope database in current directory
+if filereadable("cscope.out")
+    cs add cscope.out  
+" else add the database pointed to by environment variable 
+elseif $CSCOPE_DB != ""
+    cs add $CSCOPE_DB
+endif
+
+"change this if it gets slow
+function! LoadCscope()
+  let db = findfile("cscope.out", ".;")
+  if (!empty(db))
+    let path = strpart(db, 0, match(db, "/cscope.out$"))
+    set nocscopeverbose " suppress 'duplicate connection' error
+    exe "cs add " . db . " " . path
+    set cscopeverbose
+  endif
+endfunction
+au BufEnter /* call LoadCscope()
+
+endif
+" ========================================================================
+
+" ========================================================================
+" Ctags
+" ========================================================================
+set tags=./tags;/ "search for tags up to / (change this if it gets slow)
+" ========================================================================
+
+" ========================================================================
+" Persistant undo
+" ========================================================================
+au BufWritePre /tmp/* setlocal noundofile
+set undodir=~/.vim/undodir
+set undofile
+set undolevels=1000 "maximum number of changes that can be undone
+set undoreload=10000 "maximum number lines to save for undo on a buffer reload
+" ======================================================================== 
+         
 " ========================================================================
 " Buftabs
 " ========================================================================
@@ -99,6 +162,7 @@ let g:buftabs_only_basename = 1
 " ========================================================================
 set statusline=
 "set statusline +=%{buftabs#statusline()} 
+set statusline +=%-2.3n		 " buffer number
 set statusline +=%t          " filename
 set statusline +=%m          " modified
 set statusline +=%r          " read-only
@@ -113,7 +177,7 @@ set statusline +=0x%04B\%*\  " character under cursor
 " ========================================================================
 " Custom keyboard shortcuts
 " ========================================================================
-set pastetoggle=<F7> "TODO: this is just temporary. Remember to change this.
+set pastetoggle=<F5> "TODO: this is just temporary. Remember to change this.
 
 "show non-visual chars
 set listchars=tab:>-,trail:',eol:$
@@ -130,8 +194,11 @@ silent! nnoremap <silent> <F2> :TlistToggle<CR>
 "silent! nnoremap <silent> <F2> :TlistUpdate<CR> 
 silent! nnoremap <silent> <F3> :NERDTreeToggle<CR> 
 silent! nnoremap <silent> <F4> :GundoToggle<CR> 
-silent! nnoremap <silent> <C-f> :CommandT<CR> 
-silent! nnoremap <silent> <C-b> :CommandTBuffer<CR> 
+"silent! nnoremap <silent> <leader>ff :CommandT<CR> 
+"silent! nnoremap <silent> <leader>bb :CommandTBuffer<CR> 
+silent! nnoremap <silent> <leader>jj :FufJumpList<CR> 
+silent! nnoremap <silent> <leader>cf :call g:ClangUpdateQuickFix()<CR> 
+silent! nmap <silent> <leader>cc :cclose<CR>
 " ========================================================================
 
 " ========================================================================
@@ -158,8 +225,7 @@ let g:gundo_close_on_revert = 0 "set this to 1 to automatically close the Gundo 
 
 " ========================================================================
 " Command-t settings
-" =======================================================================
-silent! nnoremap <unique> <silent> <Leader>g :CommandT<CR> 
+" ========================================================================
 let g:CommadTMaxFiles = 90000
 let g:CommandTMaxDepth = 20
 let g:CommmandTCancelMap = ['<C-c>', '<Esc>']
