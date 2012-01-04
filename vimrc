@@ -41,13 +41,15 @@ set smartindent
 set tabstop=4 
 set softtabstop=4
 set shiftwidth=4 
-set noexpandtab
+set expandtab
 set autoindent
 set copyindent
 set smarttab
 
-"current directory is always matching the content of the active window
-set autochdir
+"chdir settings
+"set autochdir
+map <leader>cd :lcd %:h<CR>
+
 set autoread "auto reload file contents on external change
 
 "use console dialogs instead of popup dialogs for simple choices
@@ -79,6 +81,10 @@ set completeopt=menu,menuone,longest
 "make default clipboard
 set clipboard=unnamedplus
 
+" Make shift-insert work like in Xterm
+map <S-Insert> <MiddleMouse>
+map! <S-Insert> <MiddleMouse>
+
 "remap ` to ' (it's more useful this way)
 nnoremap ' `
 nnoremap ` '
@@ -94,7 +100,17 @@ imap <F9> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
 set foldmethod=syntax
 set foldnestmax=1
 set foldlevel=1
-nnoremap <space> za
+"nnoremap <space> za
+
+"experimental: (TODO: decide what to do with these:)
+set shellslash
+set lazyredraw
+set mousehide
+set scrolloff=8
+set showfulltag
+set grepprg=grep\ -nH\ $*
+nmap <silent> ,sw :execute ":resize " . line('$')<cr>
+
 
 "store temporary files in a central folder 
 set backupdir=~/.vim/tmp
@@ -162,16 +178,17 @@ let g:buftabs_only_basename = 1
 " ========================================================================
 set statusline=
 "set statusline +=%{buftabs#statusline()} 
-set statusline +=%-2.3n		 " buffer number
-set statusline +=%t          " filename
-set statusline +=%m          " modified
-set statusline +=%r          " read-only
-set statusline +=%=          " delimiter
-set statusline +=%p%%        " percent
-set statusline +=%=%5l%*     " current line
-set statusline +=/%L%*       " total lines
-set statusline +=%4c\ %*     " column number
-set statusline +=0x%04B\%*\  " character under cursor
+"set statusline +=%-2.3n		 " buffer number
+"set statusline +=%t          " filename
+"set statusline +=%m          " modified
+"set statusline +=%r          " read-only
+"set statusline +=%=          " delimiter
+"set statusline +=%p%%        " percent
+"set statusline +=%5l%*     " current line
+"set statusline +=/%L%*       " total lines
+"set statusline +=%4c\ %*     " column number
+"set statusline +=0x%04B\%*\  " character under cursor
+set statusline +=%f\%m\ #%n\ \ %l/%L[%p%%]\ %v\ [%b][0x%B]
 " ========================================================================
 
 " ========================================================================
@@ -188,6 +205,16 @@ nmap <silent> ,sv :so $MYVIMRC<cr>
 " ========================================================================
 
 " ========================================================================
+" Custom functions
+" ========================================================================
+function! ClangCheck()
+	if &ft == "c" || &ft == "cpp" || &ft == "h" || &ft == "hpp"    
+	   call g:ClangUpdateQuickFix()
+	endif
+endfunc
+" ========================================================================
+
+" ========================================================================
 " Frequent plugin shortcuts
 " ========================================================================
 silent! nnoremap <silent> <F2> :TlistToggle<CR> 
@@ -196,8 +223,8 @@ silent! nnoremap <silent> <F3> :NERDTreeToggle<CR>
 silent! nnoremap <silent> <F4> :GundoToggle<CR> 
 "silent! nnoremap <silent> <leader>ff :CommandT<CR> 
 "silent! nnoremap <silent> <leader>bb :CommandTBuffer<CR> 
-silent! nnoremap <silent> <leader>jj :FufJumpList<CR> 
-silent! nnoremap <silent> <leader>cf :call g:ClangUpdateQuickFix()<CR> 
+silent! nnoremap <silent> <leader>jj :FufJumpList<CR>
+silent! nnoremap <silent> <leader>cf :call ClangCheck()<CR>
 silent! nmap <silent> <leader>cc :cclose<CR>
 " ========================================================================
 
@@ -222,6 +249,33 @@ let g:gundo_right = 1
 let g:gundo_close_on_revert = 0 "set this to 1 to automatically close the Gundo windows when reverting.
 "let g:gundo_preview_bottom = 1
 " ======================================================================== 
+
+" ======================================================================== 
+" FSwitch
+" ======================================================================== 
+nmap <silent> ,of :FSHere<CR>
+nmap <silent> ,ol :FSRight<CR>
+nmap <silent> ,oL :FSSplitRight<CR>
+nmap <silent> ,oh :FSLeft<CR>
+nmap <silent> ,oH :FSSplitLeft<CR>
+nmap <silent> ,ok :FSAbove<CR>
+nmap <silent> ,oK :FSSplitAbove<CR>
+nmap <silent> ,oj :FSBelow<CR>
+nmap <silent> ,oJ :FSSplitBelow<CR>
+" ======================================================================== 
+
+" ======================================================================== 
+" FuzzyFinder settings
+" ======================================================================== 
+let g:fuf_file_exclude = '\v\~$|\.(o|exe|dll|bak|class|meta|lock|orig|jar|swp)$|/test/data\.|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
+nmap <silent> ,fv :FufFile ~/.vim/<cr>
+nmap <silent> ,fb :FufBuffer<cr>
+nmap <silent> ,ff :FufFile<cr>
+nmap <silent> ,fj :FufJumpList<cr>
+nmap <silent> ,fc :FufMruCmd<cr>
+nmap <silent> ,fm :FufMruFile<cr>
+" ======================================================================== 
+
 
 " ========================================================================
 " Command-t settings
