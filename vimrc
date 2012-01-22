@@ -20,6 +20,7 @@ call pathogen#helptags()
 " ========================================================================
 syntax on
 filetype plugin indent on
+set term=screen-256color
 colorscheme xoria256
 let mapleader = ","
 
@@ -45,6 +46,9 @@ set expandtab
 set autoindent
 set copyindent
 set smarttab
+
+"c indentation options
+set cino=g0
 
 "chdir settings
 "set autochdir
@@ -102,15 +106,33 @@ set foldnestmax=1
 set foldlevel=1
 "nnoremap <space> za
 
+"temp stuff:
+set makeprg=clang\ %
+
 "experimental: (TODO: decide what to do with these:)
+">>>>>>>>>>
 set shellslash
 set lazyredraw
 set mousehide
 set scrolloff=8
 set showfulltag
-set grepprg=grep\ -nH\ $*
+"use whis for bufers with a few lines
 nmap <silent> ,sw :execute ":resize " . line('$')<cr>
 
+autocmd FileType text setlocal textwidth=78
+set showcmd     "display imcomplete commands
+set cmdheight=2 "TODO i want this. move this elsewhere
+
+"nice :)
+map <Left> :echo "no!"<cr>
+map <Right> :echo "no!"<cr>
+map <Up> :echo "no!"<cr>
+map <Down> :echo "no!"<cr>
+">>>>>>>>>>
+
+"grep settings
+set grepprg=grep\ -nH\ $*
+command! -nargs=+ Cgrep execute 'lgrep! <args> * -R' | lopen 16
 
 "store temporary files in a central folder 
 set backupdir=~/.vim/tmp
@@ -126,13 +148,13 @@ set cscopetag
 set csto=0 "check scope first, then ctags
 "set cscopeverbose
 
-" add any cscope database in current directory
-if filereadable("cscope.out")
-    cs add cscope.out  
-" else add the database pointed to by environment variable 
-elseif $CSCOPE_DB != ""
-    cs add $CSCOPE_DB
-endif
+"" add any cscope database in current directory
+"if filereadable("cscope.out")
+"    cs add cscope.out  
+"" else add the database pointed to by environment variable 
+"elseif $CSCOPE_DB != ""
+"    cs add $CSCOPE_DB
+"endif
 
 "change this if it gets slow
 function! LoadCscope()
@@ -222,22 +244,34 @@ silent! nnoremap <silent> <F2> :TlistToggle<CR>
 silent! nnoremap <silent> <F3> :NERDTreeToggle<CR> 
 silent! nnoremap <silent> <F4> :GundoToggle<CR> 
 "silent! nnoremap <silent> <leader>ff :CommandT<CR> 
-"silent! nnoremap <silent> <leader>bb :CommandTBuffer<CR> 
+silent! nnoremap <silent> <leader>bb :BufExplorer<CR> 
 silent! nnoremap <silent> <leader>jj :FufJumpList<CR>
-silent! nnoremap <silent> <leader>cf :call ClangCheck()<CR>
+silent! nnoremap <silent> <leader>qf :call ClangCheck()<CR>
 silent! nmap <silent> <leader>cc :cclose<CR>
+silent! nmap <silent> <leader>cw :cwindow<CR>
+silent! nmap <silent> <leader>cc :cclose<CR>
+silent! nmap <silent> <leader>lw :lwindow<CR>
+silent! nmap <silent> <leader>ll :llist<CR>
+silent! nmap <silent> <leader>lc :lclose<CR>
 " ========================================================================
 
 " ========================================================================
 " Clang_complete settings 
 " ========================================================================
-let g:clang_complete_auto = 1 
-let g:clang_complete_copen = 1
+let g:clang_complete_auto = 0 
+let g:clang_complete_copen = 0
 let g:clang_hl_errors = 1
 let g:clang_periodic_quickfix = 0
 let g:clang_snippets = 1
 let g:clang_conceral_snippets = 1
-let g:clang_user_options = '-I/usr/include/c++/4.6/x86_64-linux-gnu/. -I/usr/include/c++/4.6/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include-fixed -I/usr/include/x86_64-linux-gnu'
+let g:clang_user_options = '-fexceptions -I/usr/include/c++/4.6/x86_64-linux-gnu/. -I/usr/include/c++/4.6/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include-fixed -I/usr/include/x86_64-linux-gnu'
+" ======================================================================== 
+
+" ======================================================================== 
+" XPTemplate
+" ======================================================================== 
+let g:xptemplate_vars = "SParg="
+let g:xptemplate_bundle = 'cpp_autoimplem'
 " ======================================================================== 
 
 " ========================================================================
