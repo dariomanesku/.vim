@@ -25,9 +25,6 @@
 [submodule "bundle/gundo"]
 	path = bundle/gundo
 	url = http://github.com/sjl/gundo.vim.git
-[submodule "bundle/protodef"]
-	path = bundle/protodef
-	url = http://github.com/derekwyatt/vim-protodef.git
 [submodule "bundle/tcomment"]
 	path = bundle/tcomment
 	url = http://github.com/tomtom/tcomment_vim.git
@@ -70,6 +67,6 @@
 [submodule "bundle/mru"]
 	path = bundle/mru
 	url = http://github.com/vim-scripts/mru.vim.git
-[submodule "bundle/zencoding-vim"]
-	path = bundle/zencoding-vim
-	url = http://github.com/mattn/zencoding-vim.git
+[submodule "bundle/sparkup"]
+	path = bundle/sparkup
+	url = http://github.com/bingaman/vim-sparkup.git

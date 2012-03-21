@@ -51,7 +51,7 @@ set smarttab
 set cino=g0
 
 "chdir settings
-"set autochdir
+set autochdir
 map <leader>cd :lcd %:h<CR>
 
 set autoread "auto reload file contents on external change
@@ -76,6 +76,9 @@ set virtualedit=all "enable cursor navigation in virtual space
 set spl=en spell
 set nospell
 
+"use mouse in all modes
+set mouse=a
+
 set wildmenu                   " use wildmenu
 set wildmode=list:longest,full " shell like behavior
 
@@ -83,7 +86,7 @@ set wildmode=list:longest,full " shell like behavior
 set completeopt=menu,menuone,longest
 
 "make default clipboard
-set clipboard=unnamedplus
+" set clipboard=unnamedplus
 
 " Make shift-insert work like in Xterm
 map <S-Insert> <MiddleMouse>
@@ -97,8 +100,8 @@ nnoremap ` '
 map K k 
 
 "insert timestamp (TODO: output some different time format)
-nmap <F9> a<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
-imap <F9> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
+nmap <F10> a<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
+imap <F10> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
 
 "make folding/unfolding easier and faster
 set foldmethod=syntax
@@ -129,6 +132,9 @@ map <Right> :echo "no!"<cr>
 map <Up> :echo "no!"<cr>
 map <Down> :echo "no!"<cr>
 ">>>>>>>>>>
+
+"test
+set lbr " paragraph formatting. do I want this?
 
 "grep settings
 set grepprg=grep\ -nH\ $*
@@ -210,7 +216,7 @@ set statusline=
 "set statusline +=/%L%*       " total lines
 "set statusline +=%4c\ %*     " column number
 "set statusline +=0x%04B\%*\  " character under cursor
-set statusline +=%f\%m\ #%n\ \ %l/%L[%p%%]\ %v\ [%b][0x%B]
+set statusline +=%f\%m\ #%n%=%l/%L[%p%%]\ %v\ [%b][0x%B]
 " ========================================================================
 
 " ========================================================================
@@ -239,20 +245,26 @@ endfunc
 " ========================================================================
 " Frequent plugin shortcuts
 " ========================================================================
-silent! nnoremap <silent> <F2> :TlistToggle<CR> 
+" silent! map <silent> <F2> :TlistToggle<CR> 
 "silent! nnoremap <silent> <F2> :TlistUpdate<CR> 
-silent! nnoremap <silent> <F3> :NERDTreeToggle<CR> 
-silent! nnoremap <silent> <F4> :GundoToggle<CR> 
+" silent! map <silent> <F3> :NERDTreeToggle<CR> 
+" silent! map <silent> <F4> :GundoToggle<CR> 
+nmap <F8> :NERDTreeToggle<CR> 
+nmap <F9> :TlistToggle<CR> 
 "silent! nnoremap <silent> <leader>ff :CommandT<CR> 
 silent! nnoremap <silent> <leader>bb :BufExplorer<CR> 
 silent! nnoremap <silent> <leader>jj :FufJumpList<CR>
 silent! nnoremap <silent> <leader>qf :call ClangCheck()<CR>
-silent! nmap <silent> <leader>cc :cclose<CR>
 silent! nmap <silent> <leader>cw :cwindow<CR>
-silent! nmap <silent> <leader>cc :cclose<CR>
+silent! nmap <silent> <leader>wc :cclose<CR>
+silent! nmap <silent> <leader>cl :clist<CR>
 silent! nmap <silent> <leader>lw :lwindow<CR>
 silent! nmap <silent> <leader>ll :llist<CR>
 silent! nmap <silent> <leader>lc :lclose<CR>
+nmap <leader>yy "+Y
+nmap <leader>pp "+P
+vmap <leader>yy "+Y
+vmap <leader>pp "+P
 " ========================================================================
 
 " ========================================================================
@@ -264,7 +276,7 @@ let g:clang_hl_errors = 1
 let g:clang_periodic_quickfix = 0
 let g:clang_snippets = 1
 let g:clang_conceral_snippets = 1
-let g:clang_user_options = '-fexceptions -I/usr/include/c++/4.6/x86_64-linux-gnu/. -I/usr/include/c++/4.6/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include-fixed -I/usr/include/x86_64-linux-gnu'
+let g:clang_user_options = '-fexceptions -I/usr/include/c++/4.6/x86_64-linux-gnu/. -I/usr/include/c++/4.6/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include/GL'
 " ======================================================================== 
 
 " ======================================================================== 
@@ -308,6 +320,9 @@ nmap <silent> ,ff :FufFile<cr>
 nmap <silent> ,fj :FufJumpList<cr>
 nmap <silent> ,fc :FufMruCmd<cr>
 nmap <silent> ,fm :FufMruFile<cr>
+let g:fuf_splitPathMatching = 0
+let g:fuf_maxMenuWidth = 110
+let g:fuf_timeFormat = ''
 " ======================================================================== 
 
 
@@ -336,14 +351,14 @@ let g:CommandTMaxHeight = 30
 " let NERDTreeShowHidden=1
 " let NERDTreeQuitOnOpen=1          " Quit on opening files from the tree
 " let NERDTreeHighlightCursorline=1 " Highlight the selected entry in the tree
-let NERDTreeWinPos='right'
-let NERDTreeWinSize=30 
+" let NERDTreeWinPos='right'
+" let NERDTreeWinSize=30 
 " ========================================================================
 
 " ======================================================================== 
 " Taglist (Tlist)
 " ======================================================================== 
-let g:Tlist_Use_Right_Window = 0
+let g:Tlist_Use_Right_Window = 1
 let g:Tlist_Enable_Fold_Column = 0
 let g:Tlist_WinWidth = 35
 " ======================================================================== 
@@ -352,7 +367,7 @@ let g:Tlist_WinWidth = 35
 " Source Explorer
 " ========================================================================
 " // The switch of the Source Explorer 
-nmap <F8> :SrcExplToggle<CR> 
+nmap <F7> :SrcExplToggle<CR> 
 " // Set the height of Source Explorer window 
 let g:SrcExpl_winHeight = 14
 " // Set 100 ms for refreshing the Source Explorer 
