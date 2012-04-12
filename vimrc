@@ -26,7 +26,7 @@ let mapleader = ","
 
 set number       " show line numbers
 set ic           " ignore case
-set hidden       " enable unsaved buffers (be careful)
+set hidden       " enable unsaved buffers
 set title
 set noerrorbells
 set showmatch    " show matching braces
@@ -86,7 +86,7 @@ set wildmode=list:longest,full " shell like behavior
 set completeopt=menu,menuone,longest
 
 "make default clipboard
-" set clipboard=unnamedplus
+"set clipboard=unnamedplus
 
 " Make shift-insert work like in Xterm
 map <S-Insert> <MiddleMouse>
@@ -110,7 +110,7 @@ set foldlevel=1
 "nnoremap <space> za
 
 "temp stuff:
-set makeprg=clang\ %
+set makeprg=g++\ %
 
 "experimental: (TODO: decide what to do with these:)
 ">>>>>>>>>>
@@ -139,6 +139,7 @@ set lbr " paragraph formatting. do I want this?
 "grep settings
 set grepprg=grep\ -nH\ $*
 command! -nargs=+ Cgrep execute 'lgrep! <args> * -R' | lopen 16
+command! Cgrepw execute "lgrep! " . expand("<cword>") . " * -R" | lopen 16
 
 "store temporary files in a central folder 
 set backupdir=~/.vim/tmp
@@ -149,9 +150,9 @@ set directory=~/.vim/tmp
 " CScope
 " ========================================================================
 if has("cscope")
-"use cscope by default
-set cscopetag
-set csto=0 "check scope first, then ctags
+"DON'T use cscope by default
+set nocscopetag
+set csto=1 "check scope first, then ctags (INVERSE)
 "set cscopeverbose
 
 "" add any cscope database in current directory
@@ -180,7 +181,8 @@ endif
 " ========================================================================
 " Ctags
 " ========================================================================
-set tags=./tags;/ "search for tags up to / (change this if it gets slow)
+set tags=./tags;/,$HOME/.cindex/tags "search for tags up to / (change this if it gets slow)
+" nnoremap <C-[> :pop<CR> << how to fix this?
 " ========================================================================
 
 " ========================================================================
@@ -216,7 +218,7 @@ set statusline=
 "set statusline +=/%L%*       " total lines
 "set statusline +=%4c\ %*     " column number
 "set statusline +=0x%04B\%*\  " character under cursor
-set statusline +=%f\%m\ #%n%=%l/%L[%p%%]\ %v\ [%b][0x%B]
+set statusline +=%f\%m\ #%n\ %l/%L[%p%%]\ %v\ [%b][0x%B]
 " ========================================================================
 
 " ========================================================================
@@ -250,14 +252,15 @@ endfunc
 " silent! map <silent> <F3> :NERDTreeToggle<CR> 
 " silent! map <silent> <F4> :GundoToggle<CR> 
 nmap <F8> :NERDTreeToggle<CR> 
+nmap <leader>cn :NERDTreeToggle<CR> 
 nmap <F9> :TlistToggle<CR> 
 "silent! nnoremap <silent> <leader>ff :CommandT<CR> 
 silent! nnoremap <silent> <leader>bb :BufExplorer<CR> 
 silent! nnoremap <silent> <leader>jj :FufJumpList<CR>
 silent! nnoremap <silent> <leader>qf :call ClangCheck()<CR>
 silent! nmap <silent> <leader>cw :cwindow<CR>
-silent! nmap <silent> <leader>wc :cclose<CR>
 silent! nmap <silent> <leader>cl :clist<CR>
+silent! nmap <silent> <leader>cc :cclose<CR>
 silent! nmap <silent> <leader>lw :lwindow<CR>
 silent! nmap <silent> <leader>ll :llist<CR>
 silent! nmap <silent> <leader>lc :lclose<CR>
@@ -270,13 +273,18 @@ vmap <leader>pp "+P
 " ========================================================================
 " Clang_complete settings 
 " ========================================================================
+let g:clang_auto_select=1
 let g:clang_complete_auto = 0 
-let g:clang_complete_copen = 0
+let g:clang_complete_copen = 1
 let g:clang_hl_errors = 1
 let g:clang_periodic_quickfix = 0
 let g:clang_snippets = 1
+let g:clang_snippets_engine = "clang_complete"
 let g:clang_conceral_snippets = 1
-let g:clang_user_options = '-fexceptions -I/usr/include/c++/4.6/x86_64-linux-gnu/. -I/usr/include/c++/4.6/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include/GL'
+let g:clang_exec="clang"
+let g:clang_complete_macros=1
+let g:clang_complete_patterns=1
+let g:clang_user_options = '-fexceptions -I/usr/include/c++/4.6/x86_64-linux-gnu/. -I/usr/include/c++/4.6/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include/GL -I/usr/local/include/bullet'
 " ======================================================================== 
 
 " ======================================================================== 
@@ -396,4 +404,25 @@ let g:SrcExpl_isUpdateTags = 0
 let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
 " // Set "<F12>" key for updating the tags file artificially 
 let g:SrcExpl_updateTagsKey = "<F12>" 
-"======================================================================== 
+" ======================================================================== 
+
+" ======================================================================== 
+" Custom functions
+" ======================================================================== 
+function! CloseHiddenBuffers()
+  " figure out which buffers are visible in any tab
+  let visible = {}
+  for t in range(1, tabpagenr('$'))
+    for b in tabpagebuflist(t)
+      let visible[b] = 1
+    endfor
+  endfor
+  " close any buffer that's loaded and not visible
+  for b in range(1, bufnr('$'))
+    if bufloaded(b) && !has_key(visible, b)
+      exe 'bd ' . b
+    endif
+  endfor
+endfun
+" ======================================================================== 
+

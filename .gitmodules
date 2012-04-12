@@ -70,3 +70,15 @@
 [submodule "bundle/sparkup"]
 	path = bundle/sparkup
 	url = http://github.com/bingaman/vim-sparkup.git
+[submodule "bundle/drawit"]
+	path = bundle/drawit
+	url = http://github.com/vim-scripts/DrawIt
+[submodule "bundle/gtags"]
+	path = bundle/gtags
+	url = http://github.com/vim-scripts/gtags.vim.git
+[submodule "bundle/Buffet"]
+	path = bundle/Buffet
+	url = http://github.com/sandeepcr529/Buffet.vim.git
+[submodule "bundle/CSApprox"]
+	path = bundle/CSApprox
+	url = http://github.com/vim-scripts/CSApprox.git
