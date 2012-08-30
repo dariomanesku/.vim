@@ -3,6 +3,8 @@
 " ========================================================================
 let g:pathogen_disabled = []
 call add(g:pathogen_disabled, "supertab")
+call add(g:pathogen_disabled, "sparkup")
+call add(g:pathogen_disabled, "CSApprox")
 call add(g:pathogen_disabled, "0scan")
 call add(g:pathogen_disabled, "minibufexpl")
 call add(g:pathogen_disabled, "showmarks")
@@ -21,7 +23,8 @@ call pathogen#helptags()
 syntax on
 filetype plugin indent on
 set term=screen-256color
-colorscheme xoria256
+" colorscheme xoria256
+colorscheme zenburn
 let mapleader = ","
 
 set number       " show line numbers
@@ -55,6 +58,7 @@ set autochdir
 map <leader>cd :lcd %:h<CR>
 
 set autoread "auto reload file contents on external change
+
 
 "use console dialogs instead of popup dialogs for simple choices
 set guioptions+=c "TODO:<<< test
@@ -95,6 +99,8 @@ map! <S-Insert> <MiddleMouse>
 "remap ` to ' (it's more useful this way)
 nnoremap ' `
 nnoremap ` '
+vnoremap ' `
+vnoremap ` '
 
 "don't accidently hit this when using visual line selection
 map K k 
@@ -110,7 +116,7 @@ set foldlevel=1
 "nnoremap <space> za
 
 "temp stuff:
-set makeprg=g++\ %
+set makeprg=make
 
 "experimental: (TODO: decide what to do with these:)
 ">>>>>>>>>>
@@ -126,11 +132,15 @@ autocmd FileType text setlocal textwidth=78
 set showcmd     "display imcomplete commands
 set cmdheight=2 "TODO i want this. move this elsewhere
 
+
+"don'h highliht the line where the cursor is
+set nocursorline
+
 "nice :)
-map <Left> :echo "no!"<cr>
-map <Right> :echo "no!"<cr>
-map <Up> :echo "no!"<cr>
-map <Down> :echo "no!"<cr>
+" map <Left> :echo "no!"<cr>
+" map <Right> :echo "no!"<cr>
+" map <Up> :echo "no!"<cr>
+" map <Down> :echo "no!"<cr>
 ">>>>>>>>>>
 
 "test
@@ -173,7 +183,9 @@ function! LoadCscope()
     set cscopeverbose
   endif
 endfunction
-au BufEnter /* call LoadCscope()
+
+"DON'T call cscope on BufEnter
+" au BufEnter /* call LoadCscope()
 
 endif
 " ========================================================================
@@ -218,7 +230,7 @@ set statusline=
 "set statusline +=/%L%*       " total lines
 "set statusline +=%4c\ %*     " column number
 "set statusline +=0x%04B\%*\  " character under cursor
-set statusline +=%f\%m\ #%n\ %l/%L[%p%%]\ %v\ [%b][0x%B]
+set statusline +=%f\%m\ #%n\ >%v\ %l/%L[%p%%]\ [%b\ 0x%B]%=%{getcwd()}
 " ========================================================================
 
 " ========================================================================
@@ -273,18 +285,21 @@ vmap <leader>pp "+P
 " ========================================================================
 " Clang_complete settings 
 " ========================================================================
-let g:clang_auto_select=1
+let g:clang_auto_select=0
 let g:clang_complete_auto = 0 
 let g:clang_complete_copen = 1
-let g:clang_hl_errors = 1
+let g:clang_hl_errors = 0
 let g:clang_periodic_quickfix = 0
 let g:clang_snippets = 1
 let g:clang_snippets_engine = "clang_complete"
 let g:clang_conceral_snippets = 1
 let g:clang_exec="clang"
-let g:clang_complete_macros=1
-let g:clang_complete_patterns=1
-let g:clang_user_options = '-fexceptions -I/usr/include/c++/4.6/x86_64-linux-gnu/. -I/usr/include/c++/4.6/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include/GL -I/usr/local/include/bullet'
+let g:clang_library_path="/usr/lib/"
+let g:clang_use_library=1
+" let g:clang_auto_user_options=1
+" let g:clang_complete_macros=1
+" let g:clang_complete_patterns=1
+let g:clang_user_options = '-fexceptions -I/usr/include/c++/4.6/x86_64-linux-gnu/. -I/usr/include/c++/4.6/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include/GL -I/usr/local/include/bullet -I/usr/include/ni/'
 " ======================================================================== 
 
 " ======================================================================== 
@@ -307,27 +322,40 @@ let g:gundo_close_on_revert = 0 "set this to 1 to automatically close the Gundo 
 " ======================================================================== 
 " FSwitch
 " ======================================================================== 
-nmap <silent> ,of :FSHere<CR>
-nmap <silent> ,ol :FSRight<CR>
-nmap <silent> ,oL :FSSplitRight<CR>
-nmap <silent> ,oh :FSLeft<CR>
-nmap <silent> ,oH :FSSplitLeft<CR>
-nmap <silent> ,ok :FSAbove<CR>
-nmap <silent> ,oK :FSSplitAbove<CR>
-nmap <silent> ,oj :FSBelow<CR>
-nmap <silent> ,oJ :FSSplitBelow<CR>
+nmap <silent> ,ff :FSHere<CR>
+nmap <silent> ,fl :FSRight<CR>
+nmap <silent> ,fL :FSSplitRight<CR>
+nmap <silent> ,fh :FSLeft<CR>
+nmap <silent> ,fH :FSSplitLeft<CR>
+nmap <silent> ,fk :FSAbove<CR>
+nmap <silent> ,fK :FSSplitAbove<CR>
+nmap <silent> ,fj :FSBelow<CR>
+nmap <silent> ,fJ :FSSplitBelow<CR>
+" ======================================================================== 
+
+" ======================================================================== 
+" Mirror
+" ======================================================================== 
+nmap <silent> ,ml :MirrorRight<CR>
+nmap <silent> ,mL :MirrorSplitRight<CR>
+nmap <silent> ,mh :MirrorLeft<CR>
+nmap <silent> ,mH :MirrorSplitLeft<CR>
+nmap <silent> ,mk :MirrorAbove<CR>
+nmap <silent> ,mK :MirrorSplitAbove<CR>
+nmap <silent> ,mj :MirrorBelow<CR>
+nmap <silent> ,mJ :MirrorSplitBelow<CR>
 " ======================================================================== 
 
 " ======================================================================== 
 " FuzzyFinder settings
 " ======================================================================== 
 let g:fuf_file_exclude = '\v\~$|\.(o|exe|dll|bak|class|meta|lock|orig|jar|swp)$|/test/data\.|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
-nmap <silent> ,fv :FufFile ~/.vim/<cr>
-nmap <silent> ,fb :FufBuffer<cr>
-nmap <silent> ,ff :FufFile<cr>
-nmap <silent> ,fj :FufJumpList<cr>
-nmap <silent> ,fc :FufMruCmd<cr>
-nmap <silent> ,fm :FufMruFile<cr>
+" nmap <silent> ,ev :FufFile ~/.vim/<cr>
+nmap <silent> ,eb :FufBuffer<cr>
+nmap <silent> ,ef :FufFile<cr>
+nmap <silent> ,ej :FufJumpList<cr>
+nmap <silent> ,ec :FufMruCmd<cr>
+nmap <silent> ,em :FufMruFile<cr>
 let g:fuf_splitPathMatching = 0
 let g:fuf_maxMenuWidth = 110
 let g:fuf_timeFormat = ''
@@ -356,7 +384,7 @@ let g:CommandTMaxHeight = 30
 "
 " let NERDTreeShowBookmarks=1       " Show the bookmarks table on startup
 " let NERDTreeShowFiles=1           " Show hidden files, too
-" let NERDTreeShowHidden=1
+let NERDTreeShowHidden=1
 " let NERDTreeQuitOnOpen=1          " Quit on opening files from the tree
 " let NERDTreeHighlightCursorline=1 " Highlight the selected entry in the tree
 " let NERDTreeWinPos='right'
@@ -424,5 +452,26 @@ function! CloseHiddenBuffers()
     endif
   endfor
 endfun
-" ======================================================================== 
 
+function! NumberToggle()
+    if (&relativenumber == 1)
+        set number
+    else
+        set relativenumber
+    endif
+endfun
+nnoremap <C-n> :call NumberToggle()<cr>
+
+function! ChdirToggle()
+    if (&autochdir == 1)
+        set noautochdir
+    else
+        set autochdir
+    endif
+endfun
+nnoremap ,ct :call ChdirToggle()<cr>
+nmap <silent> ,et :e $HOME/.vim/bundle/xptemplate/personal/ftplugin/<cr>
+" set makeef=make.err
+set makeprg=make
+nmap ,ee :w<cr>:make! && ./app<cr>
+" ======================================================================== 
