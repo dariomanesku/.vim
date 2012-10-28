@@ -7,9 +7,6 @@
 [submodule "bundle/vim256-color"]
 	path = bundle/vim256-color
 	url = http://github.com/noah/vim256-color.git
-[submodule "bundle/minibufexpl"]
-	path = bundle/minibufexpl
-	url = http://github.com/fholgado/minibufexpl.vim.git
 [submodule "bundle/xptemplate"]
 	path = bundle/xptemplate
 	url = http://github.com/drmingdrmer/xptemplate.git
@@ -31,30 +28,12 @@
 [submodule "bundle/histwin"]
 	path = bundle/histwin
 	url = http://github.com/chrisbra/histwin.vim
-[submodule "bundle/supertab"]
-	path = bundle/supertab
-	url = http://github.com/ervandew/supertab.git
 [submodule "bundle/0scan"]
 	path = bundle/0scan
 	url = http://github.com/vim-scripts/0scan.git
-[submodule "bundle/scmdiff"]
-	path = bundle/scmdiff
-	url = http://github.com/ghewgill/vim-scmdiff
-[submodule "bundle/zcommand-t"]
-	path = bundle/zcommand-t
-	url = http://github.com/wincent/Command-T.git
 [submodule "bundle/vim-surround"]
 	path = bundle/vim-surround
 	url = http://github.com/tpope/vim-surround.git
-[submodule "bundle/srcexpl"]
-	path = bundle/srcexpl
-	url = http://github.com/vim-scripts/Source-Explorer-srcexpl.vim
-[submodule "bundle/buftabs"]
-	path = bundle/buftabs
-	url = http://github.com/vim-scripts/buftabs
-[submodule "bundle/vim-protodef"]
-	path = bundle/vim-protodef
-	url = http://github.com/derekwyatt/vim-protodef.git
 [submodule "bundle/showmarks"]
 	path = bundle/showmarks
 	url = http://github.com/vim-scripts/ShowMarks.git
@@ -82,3 +61,27 @@
 [submodule "bundle/CSApprox"]
 	path = bundle/CSApprox
 	url = http://github.com/vim-scripts/CSApprox.git
+[submodule "bundle/vim-pad"]
+	path = bundle/vim-pad
+	url = http://github.com/fmoralesc/vim-pad.git
+[submodule "bundle/ctrlp"]
+	path = bundle/ctrlp
+	url = http://github.com/kien/ctrlp.vim.git
+[submodule "bundle/vim-protodef"]
+	path = bundle/vim-protodef
+	url = http://github.com/derekwyatt/vim-protodef.git
+[submodule "bundle/ack"]
+	path = bundle/ack
+	url = http://github.com/mileszs/ack.vim.git
+[submodule "bundle/speeddating"]
+	path = bundle/speeddating
+	url = http://github.com/tpope/vim-speeddating.git
+[submodule "bundle/quicktask"]
+	path = bundle/quicktask
+	url = https://github.com/aaronbieber/quicktask.git
+[submodule "bundle/YankRing"]
+	path = bundle/YankRing
+	url = https://github.com/vim-scripts/YankRing.vim.git
+[submodule "bundle/OmniCppComplete"]
+	path = bundle/OmniCppComplete
+	url = https://github.com/vim-scripts/OmniCppComplete.git
