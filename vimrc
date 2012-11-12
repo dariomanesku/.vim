@@ -6,6 +6,7 @@ let g:pathogen_disabled = []
 call add(g:pathogen_disabled, "0scan")
 call add(g:pathogen_disabled, "lusty")
 call add(g:pathogen_disabled, "recover")
+call add(g:pathogen_disabled, "vim-pad")
 " ========================================================================
 
 " ========================================================================
@@ -121,7 +122,7 @@ set wildmode=list:longest,full " shell like behavior
 noremap Q <Nop>
 
 "disable preview scratch window
-set completeopt=menuone
+set completeopt=menuone,longest
 
 "make default clipboard
 " set clipboard=unnamed "plus
@@ -285,6 +286,7 @@ set tags=./tags;/
 set tags+=~/.ctags/cpp
 set tags+=~/.ctags/libc6
 set tags+=~/.ctags/gl
+set tags+=~/.ctags/cl
 set tags+=~/.ctags/sdl
 set tags+=~/.ctags/boost
 function! Ctags()
@@ -628,7 +630,7 @@ let g:ctrlp_max_depth = 4
 let g:ctrlp_max_files=100000
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_custom_ignore = ''
-let g:ctrlp_max_height = 25
+" let g:ctrlp_max_height = 15
 let g:ctrlp_map = '<leader>p'
 " let g:ctrlp_custom_ignore = {
 
@@ -663,3 +665,6 @@ let OmniCpp_MayCompleteArrow = 0 " autocomplete after ->
 let OmniCpp_MayCompleteScope = 0 " autocomplete after ::
 let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
+
+"Set filetype for opencl files
+autocmd BufNewFile,BufRead *.cl setf cc

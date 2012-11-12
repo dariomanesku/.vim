@@ -43,6 +43,11 @@ vim-yankstack     -- Yank stack
 window_management -- [personal] window management plugin
 xptemplate        -- templates
 
+#TEST
+tagbar -- just like taglist (I think)
+taghighlight -- ctag highlight in files
+
+    
 
 #TODO:
 # ultisnips - watch screencasts on youtube

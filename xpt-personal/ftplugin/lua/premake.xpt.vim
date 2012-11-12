@@ -8,12 +8,13 @@ solution "app"
         --links { "" }
         --libdirs { "" }
         --includedirs { "/usr/include/GL" }
-        --buildoptions { "" }
+        buildoptions { "-std=c++11" }
         defines { "DEBUG" }
         flags { "Symbols" }
     configuration "linux_release"
         --links { "" }
         --includedirs { "" }
+        buildoptions { "-std=c++11" }
         defines { "NDEBUG" }
         flags { "Optimize" }
         
