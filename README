@@ -6,9 +6,13 @@ Create symlinks:
 
     ln -s ~/.vim/vimrc ~/.vimrc
 
-Switch to the `~/.vim` directory, and fetch submodules:
+Switch to the `~/.vim` directory, and create subdirs:
 
     cd ~/.vim
+    mkdir undodir tmp
+
+Setup submodules:
+
     git submodule init
     git submodule update
 

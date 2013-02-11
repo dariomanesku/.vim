@@ -1,0 +1,63 @@
+0scan             --file/buffer/marks/paste...finder/jumper/manager...asdf :)
+ack               -- grep like functionality
+Align             -- text alignment
+bufexplorer       -- open buffer list in a buffer
+Buffet            -- like bufexplorer (use one of those)
+bufkill           -- provides :BD
+calendar          -- Calendar
+clang_complete    -- Clang complete
+ColorSamplerPack  -- Color theme pack
+conque            -- interactive program into vim buffer
+CSApprox          -- terminal colors for gvim themes
+cscope_maps       -- keyboard maps for cscope
+css-color         -- css color
+ctrlp             -- file/buffer manager
+drawit            -- drawing utilities
+fugitive          -- git manager
+FuzzyFinder       -- file/buffer manager [needs L9]
+grep              -- Grep utility
+gtags             -- Global tags [todo]
+gundo             -- undo tree plugin
+histwin           -- undo tree plugin
+L9                -- [function library]
+lusty             -- file/buffer manager [TODO: test]
+mirror            -- [personal] buffer/window position manager
+mru               -- :MRU (most recently used files)
+neocomplcache     -- customizable completion plugin [in test...]
+nerdtree          -- :NERDTree
+quicktask         -- task utility <leader><esc>
+recovery          -- show diff when recovering file [in test...]
+sco               -- SourceCodeObedience - cscope/ctags/marks [TODO: test]
+ScrollColor       -- Theme browser :COLORSCROLL
+showmarks         -- Show marks along buffer windows ,mt
+sparkup           -- div>ul>li*3 <C-e>
+speeddating       -- C-a, C-z work on dates
+tcomment          -- file/buffer manager [TODO: test]
+vim256-color      -- Color theme pack
+vim-fswitch       -- Switch between source/header c++ (main part of the everyday workflow)
+vim-pad           -- Notes plugin <leader><esc>
+vim-protodef      -- ,PP (skeleton implementations of c++ function prototypes)
+vim-surround      -- change surround "aaa" + cs"' = 'aaa'
+vim-yankstack     -- Yank stack
+window_management -- [personal] window management plugin
+xptemplate        -- templates
+
+#newest added:
+VisIncr           -- Visual increment by column (and other features)
+listmaps.vim      -- list maps (:Listmaps)
+vim-characterize  -- press 'ga' on a character
+vim-seek          -- inline seek with s
+
+#TEST
+tagbar -- just like taglist (I think)
+taghighlight -- ctag highlight in files
+
+
+#figure out what to do with:
+unity.vim
+    
+
+#TODO:
+# ultisnips - watch screencasts on youtube
+# vimwiki - documentation
+# https://github.com/chrisbra/Recover.vim
