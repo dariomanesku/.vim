@@ -32,7 +32,6 @@ ScrollColor       -- Theme browser :COLORSCROLL
 showmarks         -- Show marks along buffer windows ,mt
 sparkup           -- div>ul>li*3 <C-e>
 speeddating       -- C-a, C-z work on dates
-taglist           -- TagList :TlistToggle ,tl
 tcomment          -- file/buffer manager [TODO: test]
 vim256-color      -- Color theme pack
 vim-fswitch       -- Switch between source/header c++ (main part of the everyday workflow)
@@ -43,10 +42,19 @@ vim-yankstack     -- Yank stack
 window_management -- [personal] window management plugin
 xptemplate        -- templates
 
+#newest added:
+VisIncr           -- Visual increment by column (and other features)
+listmaps.vim      -- list maps (:Listmaps)
+vim-characterize  -- press 'ga' on a character
+vim-seek          -- inline seek with s
+
 #TEST
 tagbar -- just like taglist (I think)
 taghighlight -- ctag highlight in files
 
+
+#figure out what to do with:
+unity.vim
     
 
 #TODO:

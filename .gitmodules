@@ -88,3 +88,30 @@
 [submodule "bundle/tagbar"]
 	path = bundle/tagbar
 	url = git://github.com/majutsushi/tagbar
+[submodule "bundle/VisIncr"]
+	path = bundle/VisIncr
+	url = https://github.com/vim-scripts/VisIncr.git
+[submodule "bundle/vim-latex"]
+	path = bundle/vim-latex
+	url = git://vim-latex.git.sourceforge.net/gitroot/vim-latex/vim-latex
+[submodule "bundle/LaTeX-Box"]
+	path = bundle/LaTeX-Box
+	url = https://github.com/LaTeX-Box-Team/LaTeX-Box
+[submodule "bundle/atp-vim"]
+	path = bundle/atp-vim
+	url = git://git.code.sf.net/p/atp-vim/code
+[submodule "bundle/TeX-PDF"]
+	path = bundle/TeX-PDF
+	url = https://github.com/vim-scripts/TeX-PDF.git
+[submodule "bundle/vim-easymotion"]
+	path = bundle/vim-easymotion
+	url = git://github.com/Lokaltog/vim-easymotion.git
+[submodule "bundle/listmaps.vim"]
+	path = bundle/listmaps.vim
+	url = https://github.com/vim-scripts/listmaps.vim.git
+[submodule "bundle/vim-characterize"]
+	path = bundle/vim-characterize
+	url = git://github.com/tpope/vim-characterize.git
+[submodule "bundle/vim-seek"]
+	path = bundle/vim-seek
+	url = http://github.com/goldfeld/vim-seek.git

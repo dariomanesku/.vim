@@ -16,12 +16,12 @@ com! MirrorSplitAbove : call Mirror('split | wincmd k')
 " ======================================================================== 
 " Mirror keyboard maps
 " ======================================================================== 
-map <silent> ,ml :MirrorRight<CR>
-map <silent> ,mL :MirrorSplitRight<CR>
-map <silent> ,mh :MirrorLeft<CR>
-map <silent> ,mH :MirrorSplitLeft<CR>
-map <silent> ,mk :MirrorAbove<CR>
-map <silent> ,mK :MirrorSplitAbove<CR>
-map <silent> ,mj :MirrorBelow<CR>
-map <silent> ,mJ :MirrorSplitBelow<CR>
+nmap <silent> <leader>ml :MirrorRight<CR>
+nmap <silent> <leader>mL :MirrorSplitRight<CR>
+nmap <silent> <leader>mh :MirrorLeft<CR>
+nmap <silent> <leader>mH :MirrorSplitLeft<CR>
+nmap <silent> <leader>mk :MirrorAbove<CR>
+nmap <silent> <leader>mK :MirrorSplitAbove<CR>
+nmap <silent> <leader>mj :MirrorBelow<CR>
+nmap <silent> <leader>mJ :MirrorSplitBelow<CR>
 " ======================================================================== 

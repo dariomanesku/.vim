@@ -4,9 +4,18 @@
 let g:pathogen_disabled = []
 """" call add(g:pathogen_disabled, "CSApprox") "same colors in vim and gvim
 call add(g:pathogen_disabled, "0scan")
+call add(g:pathogen_disabled, "YankRing") "evil thing
+call add(g:pathogen_disabled, "showmarks") "overriding my ,mh
 call add(g:pathogen_disabled, "lusty")
 call add(g:pathogen_disabled, "recover")
 call add(g:pathogen_disabled, "vim-pad")
+call add(g:pathogen_disabled, "nerdtree")
+call add(g:pathogen_disabled, "vim-latex")
+call add(g:pathogen_disabled, "LaTeX-Box")
+call add(g:pathogen_disabled, "atp-vim")
+call add(g:pathogen_disabled, "sparkup") "this shit is screwing ctrl+n in insert mode on html files...
+call add(g:pathogen_disabled, "vim-seek") "this is screwing s in insert mode
+call add(g:pathogen_disabled, "YouCompleteMe") "this shit is screwing ctrl+n in insert mode on html files...
 " ========================================================================
 
 " ========================================================================
@@ -33,7 +42,7 @@ set term=screen-256color
 let mapleader = ","
 
 set number       " show line numbers
-set ic           " ignore case
+set ignorecase " ignore case
 set hidden       " enable unsaved buffers
 set title
 set showmatch    " show matching braces
@@ -93,12 +102,12 @@ map <C-l> <C-w>l
 nnoremap j gj
 nnoremap k gk
 
-" TEST show wrapped lines
-set showbreak=+++
+" show this sign at the beginning of each wrapped line
+set showbreak=°°
 " TEST display
 set display=lastline,uhex
-" don't use mouse (except in command line mode)
-set mouse=c
+" " don't use mouse (except in command line mode) -> actually use mouse!
+" set mouse=c
 " TEST
 set splitbelow
 set splitright
@@ -122,7 +131,7 @@ set wildmode=list:longest,full " shell like behavior
 noremap Q <Nop>
 
 "disable preview scratch window
-set completeopt=menuone,longest
+set completeopt=menu,longest
 
 "make default clipboard
 " set clipboard=unnamed "plus
@@ -150,7 +159,7 @@ autocmd FileType make set noexpandtab
 map K k 
 
 "insert timestamp (TODO: output some different time format)
-nmap <F10> a<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
+nmap <F10> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>
 imap <F10> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
 
 "make folding/unfolding easier and faster
@@ -161,6 +170,7 @@ set foldlevel=1
 
 "temp stuff:
 set makeprg=make
+set laststatus=2
 
 "experimental: (TODO: decide what to do with these:)
 ">>>>>>>>>>
@@ -186,6 +196,10 @@ set nocursorline
 " map <Up> :echo "no!"<cr>
 " map <Down> :echo "no!"<cr>
 ">>>>>>>>>>
+
+function! Ve()
+   :!vim --remote %
+endfunc
 
 "test
 set lbr " paragraph formatting. do I want this?
@@ -239,6 +253,7 @@ set directory=~/.vim/tmp
 function! SudoWrite()
     :%!sudo tee > /dev/null %
 endfun
+cmap W!! w !sudo tee % >/dev/null
 
 " TODO: test this: (continous line number: http://i.imgur.com/Td8Jd.png)
 " Column scroll-binding on <leader>sb
@@ -310,18 +325,37 @@ if exists("+undofile")
 endif
 " ========================================================================
 
-" ========================================================================
-" Buftabs
-" ========================================================================
-set laststatus=2
-let g:buftabs_in_statusline = 1
-" let g:buftabs_only_basename = 1
-" ======================================================================== 
+"TEST
+func! STL()
+    " let stl = '%f [%{(&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?",B":"")}%M%R%H%W] %y [%l/%L,%v] [%p%%]'
+    let stl = '%f%m #%n >%v %l/%L[%p%%] [%b 0x%B]%=%{getcwd()}'
+    let barWidth = &columns - 65 " <-- wild guess
+    let barWidth = barWidth < 3 ? 3 : barWidth
+
+    if line('$') > 1
+        let progress = (line('.')-1) * (barWidth-1) / (line('$')-1)
+    else
+        let progress = barWidth/2
+    endif
+
+    " line + vcol + %
+    let pad = strlen(line('$'))-strlen(line('.')) + 3 - strlen(virtcol('.')) + 3 - strlen(line('.')*100/line('$'))
+    let bar = repeat(' ',pad).' [%1*%'.barWidth.'.'.barWidth.'('
+                \.repeat('-',progress )
+                \.'%2*0%1*'
+                \.repeat('-',barWidth - progress - 1).'%0*%)%<]'
+    return stl.bar
+endfun
+
+hi def link User1 DiffAdd
+hi def link User2 DiffDelete
+
+" set statusline=%!STL()
 
 " ========================================================================
 " Status line
 " ========================================================================
-set statusline=
+" set statusline=
 "set statusline +=%{buftabs#statusline()} 
 "set statusline +=%-2.3n        " buffer number
 "set statusline +=%t          " filename
@@ -333,7 +367,8 @@ set statusline=
 "set statusline +=/%L%*       " total lines
 "set statusline +=%4c\ %*     " column number
 "set statusline +=0x%04B\%*\  " character under cursor
-set statusline +=%f\%m\ #%n\ >%v\ %l/%L[%p%%]\ [%b\ 0x%B]%=%{getcwd()}
+" set statusline +=%f\%m\ #%n\ >%v\ %l/%L[%p%%]\ [%b\ 0x%B]%=%{getcwd()}
+set statusline=%f\%m\ #%n\ >%v\ %l/%L[%p%%]\ [%b\ 0x%B]\ %{getcwd()}
 " ========================================================================
 
 " ========================================================================
@@ -342,9 +377,16 @@ set statusline +=%f\%m\ #%n\ >%v\ %l/%L[%p%%]\ [%b\ 0x%B]%=%{getcwd()}
 set pastetoggle=<F3> "TODO: this is just temporary. Remember to change this.
 
 "show non-visual chars
-set listchars=tab:>_,trail:-,extends:>,precedes:<,eol:;
-"TODO: why this moves cursor one position right after execution?
+" set listchars=tab:>_,trail:-,extends:>,precedes:<,eol:;
+set listchars=
+set listchars+=tab:×­
+set listchars+=trail:·
+set listchars+=extends:»
+set listchars+=precedes:«
+set listchars+=nbsp:¬
+set listchars+=eol:¶
 
+"TODO: why this moves cursor one position right after execution?
 nmap <leader>li :set list!<CR>
 autocmd ColorScheme * highlight SpecialKey ctermfg=gray
 autocmd ColorScheme * highlight NonText ctermfg=gray
@@ -406,7 +448,7 @@ let g:clang_conceral_snippets = 1
 let g:clang_exec="clang"
 let g:clang_library_path="/usr/lib/"
 " let g:clang_use_library=1 //TODO: 666 << use it
-let g:clang_use_library=0
+let g:clang_use_library=1
 " let g:clang_auto_user_options=1
 " let g:clang_complete_macros=1
 " let g:clang_complete_patterns=1
@@ -441,15 +483,15 @@ map <leader>hw :Histwin<cr>
 " ======================================================================== 
 " FSwitch
 " ======================================================================== 
-nmap <silent> ,ff :FSHere<CR>
-nmap <silent> ,fl :FSRight<CR>
-nmap <silent> ,fL :FSSplitRight<CR>
-nmap <silent> ,fh :FSLeft<CR>
-nmap <silent> ,fH :FSSplitLeft<CR>
-nmap <silent> ,fk :FSAbove<CR>
-nmap <silent> ,fK :FSSplitAbove<CR>
-nmap <silent> ,fj :FSBelow<CR>
-nmap <silent> ,fJ :FSSplitBelow<CR>
+nmap <silent> ,sf :FSHere<CR>
+nmap <silent> ,sl :FSRight<CR>
+nmap <silent> ,sL :FSSplitRight<CR>
+nmap <silent> ,sh :FSLeft<CR>
+nmap <silent> ,sH :FSSplitLeft<CR>
+nmap <silent> ,sk :FSAbove<CR>
+nmap <silent> ,sK :FSSplitAbove<CR>
+nmap <silent> ,sj :FSBelow<CR>
+nmap <silent> ,sJ :FSSplitBelow<CR>
 " ======================================================================== 
 
 " ======================================================================== 
@@ -549,6 +591,7 @@ function! NumberToggle()
         set relativenumber
     endif
 endfun
+command! -nargs=0 NumberToggle :call NumberToggle()
 nnoremap <C-n> :call NumberToggle()<cr>
 
 function! ChdirToggle()
@@ -562,7 +605,11 @@ nnoremap ,ct :call ChdirToggle()<cr>
 nmap <silent> ,et :e /home/instructor/.vim/xpt-personal/ftplugin/<cr>
 " set makeef=make.err
 set makeprg=make
-nmap ,ee :w<cr>:make! && ./app<cr>
+nmap ,ee :w<cr>:! ./app<cr>
+nmap ,rr :w<cr>:execute "!~/.vim/makebg.sh"<cr><cr>
+nmap ,dd :w<cr>:execute "!~/.vim/makerunbg.sh"<cr><cr>
+
+
 " ======================================================================== 
 
 colorscheme lucius
@@ -596,13 +643,13 @@ function! GetMarkedText()
 endfunction
 
 " open URL under cursor in browser
-command! -nargs=1 OpenURL :call OpenURL(<q-args>)
+command! -nargs=1 OpenURL :call OpenURL(<args>)
 nnoremap <leader>gF :OpenURL <cfile><CR>
 nnoremap <leader>gA :OpenURL http://www.answers.com/<cword><CR>
 nnoremap <leader>gG :OpenURL http://www.google.com/search?q=<cword><CR>
 nnoremap <leader>gW :OpenURL http://en.wikipedia.org/wiki/Special:Search?search=<cword><CR>
 nnoremap <leader>gL :call OpenURL(GetLink())<CR>
-vnoremap <leader>gL :call OpenURL(GetMarkedText())<CR>
+" vnoremap <leader>gL :call OpenURL(GetMarkedText())<CR>
 
 " TEST some comment helpers
 nnoremap <leader>== yyPv$r=jyypv$r=
@@ -625,15 +672,15 @@ nmap <leader>cp :let @" = expand("%:p")<CR>
 " TEST
 " set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 " set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
-" let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_max_depth = 4
-let g:ctrlp_max_files=100000
+let g:ctrlp_max_files=10000
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_custom_ignore = ''
-" let g:ctrlp_max_height = 15
+let g:ctrlp_max_height = 25
 let g:ctrlp_map = '<leader>p'
 " let g:ctrlp_custom_ignore = {
-
+" 
 "   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
 "   \ 'file': '\v\.(exe|so|dll|o)$',
 "   \ 'link': 'some_bad_symbolic_links',
@@ -645,8 +692,8 @@ let g:showmarks_enable=0
 let g:showmarks_ignore_type="hqp"
 set updatetime=200
 
-"Test
-set foldmethod=manual
+" "Test
+" set foldmethod=manual
 
 "QuickTask
 let g:quicktask_autosave=1
@@ -668,3 +715,51 @@ au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
 
 "Set filetype for opencl files
 autocmd BufNewFile,BufRead *.cl setf cc
+
+"TEST
+" au WinLeave * set nocursorline nocursorcolumn
+" au WinEnter * set cursorline cursorcolumn
+" set cursorline cursorcolumn
+
+
+" ======================================================================== 
+" Mirror keyboard maps
+" ======================================================================== 
+nmap <silent> <leader>ml :MirrorRight<CR>
+nmap <silent> <leader>mL :MirrorSplitRight<CR>
+nmap <silent> <leader>mh :MirrorLeft<CR>
+nmap <silent> <leader>mH :MirrorSplitLeft<CR>
+nmap <silent> <leader>mk :MirrorAbove<CR>
+nmap <silent> <leader>mK :MirrorSplitAbove<CR>
+nmap <silent> <leader>mj :MirrorBelow<CR>
+nmap <silent> <leader>mJ :MirrorSplitBelow<CR>
+" ======================================================================== 
+"
+"
+"TEST
+" let g:netrw_altv           = 1
+let g:netrw_fastbrowse     = 2
+let g:netrw_keepdir        = 0
+let g:netrw_liststyle      = 3
+let g:netrw_retmap         = 1
+let g:netrw_silent         = 0
+let g:netrw_special_syntax = 1
+
+let g:Tex_DefaultTargetFormat='pdf'
+let g:LatexBox_latexmk_options = "-pdf"
+let g:LatexBox_viewer = "evince"
+let g:tex_pdf_map_keys = 0
+nmap <silent> ,bl :BuildTexPdf<CR>
+
+" ======================================================================== 
+" Easymotion
+" ======================================================================== 
+hi link EasyMotionTarget ErrorMsg
+hi link EasyMotionShade  Comment
+let g:EasyMotion_leader_key = 'f'
+let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
+cmap E<cr> Ex<cr>
+
+"Handy substitution
+nnoremap & :'{,'}s/<c-r>=expand('<cword>')<cr>/
+vnoremap & "*y<Esc>:<c-u>'{,'}s/<c-r>=substitute(escape(@*, '\/.*$^~[]'), "\n", '\\n', "g")<cr>/
