@@ -8,14 +8,10 @@ call add(g:pathogen_disabled, "YankRing") "evil thing
 call add(g:pathogen_disabled, "showmarks") "overriding my ,mh
 call add(g:pathogen_disabled, "lusty")
 call add(g:pathogen_disabled, "recover")
-call add(g:pathogen_disabled, "vim-pad")
 call add(g:pathogen_disabled, "nerdtree")
-call add(g:pathogen_disabled, "vim-latex")
-call add(g:pathogen_disabled, "LaTeX-Box")
-call add(g:pathogen_disabled, "atp-vim")
 call add(g:pathogen_disabled, "sparkup") "this shit is screwing ctrl+n in insert mode on html files...
 call add(g:pathogen_disabled, "vim-seek") "this is screwing s in insert mode
-call add(g:pathogen_disabled, "YouCompleteMe") "this shit is screwing ctrl+n in insert mode on html files...
+"TODO: try YouCompleteMe
 " ========================================================================
 
 " ========================================================================
@@ -39,6 +35,8 @@ set term=screen-256color
 " colorscheme xoria256
 " colorscheme zenburn
 " colorscheme jellybeans
+"colorscheme lucius
+colorscheme leo
 let mapleader = ","
 
 set number       " show line numbers
@@ -612,7 +610,6 @@ nmap ,dd :w<cr>:execute "!~/.vim/makerunbg.sh"<cr><cr>
 
 " ======================================================================== 
 
-colorscheme lucius
 
 "TEST
 function! OpenURL(url)
