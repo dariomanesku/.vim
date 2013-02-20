@@ -4,7 +4,6 @@
 let g:pathogen_disabled = []
 """" call add(g:pathogen_disabled, "CSApprox") "same colors in vim and gvim
 call add(g:pathogen_disabled, "0scan")
-call add(g:pathogen_disabled, "YankRing") "evil thing
 call add(g:pathogen_disabled, "showmarks") "overriding my ,mh
 call add(g:pathogen_disabled, "lusty")
 call add(g:pathogen_disabled, "recover")
@@ -16,6 +15,8 @@ call add(g:pathogen_disabled, "atp-vim")
 call add(g:pathogen_disabled, "sparkup") "this shit is screwing ctrl+n in insert mode on html files...
 call add(g:pathogen_disabled, "vim-seek") "this is screwing s in insert mode
 call add(g:pathogen_disabled, "YouCompleteMe") "this shit is screwing ctrl+n in insert mode on html files...
+
+" call add(g:pathogen_disabled, "YankRing") "evil thing /... okay, it can stay 
 " ========================================================================
 
 " ========================================================================
@@ -122,8 +123,8 @@ set virtualedit=all "enable cursor navigation in virtual space
 "use English language for spell checking but don't enable it by default
 set spelllang=en_us
 set nospell
-map <F4> :set nospell!<CR> 
-imap <F4> :set nospell!<CR> 
+map <F3> :set nospell!<CR> 
+imap <F3> :set nospell!<CR> 
 
 set wildmenu                   " use wildmenu
 set wildmode=list:longest,full " shell like behavior
@@ -198,7 +199,7 @@ set nocursorline
 ">>>>>>>>>>
 
 function! Ve()
-   :!vim --remote %
+    :!vim --remote %
 endfunc
 
 "test
@@ -264,32 +265,32 @@ noremap <silent> <leader>sb :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljz
 " CScope
 " ========================================================================
 if has("cscope")
-"DON'T use cscope by default
-set nocscopetag
-set csto=1 "check scope first, then ctags (INVERSE)
-"set cscopeverbose
+    "DON'T use cscope by default
+    set nocscopetag
+    set csto=1 "check scope first, then ctags (INVERSE)
+    "set cscopeverbose
 
-"" add any cscope database in current directory
-"if filereadable("cscope.out")
-"    cs add cscope.out  
-"" else add the database pointed to by environment variable 
-"elseif $CSCOPE_DB != ""
-"    cs add $CSCOPE_DB
-"endif
+    "" add any cscope database in current directory
+    "if filereadable("cscope.out")
+    "    cs add cscope.out  
+    "" else add the database pointed to by environment variable 
+    "elseif $CSCOPE_DB != ""
+    "    cs add $CSCOPE_DB
+    "endif
 
-"change this if it gets slow
-function! LoadCscope()
-  let db = findfile("cscope.out", ".;")
-  if (!empty(db))
-    let path = strpart(db, 0, match(db, "/cscope.out$"))
-    set nocscopeverbose " suppress 'duplicate connection' error
-    exe "cs add " . db . " " . path
-    set cscopeverbose
-  endif
-endfunction
+    "change this if it gets slow
+    function! LoadCscope()
+        let db = findfile("cscope.out", ".;")
+        if (!empty(db))
+            let path = strpart(db, 0, match(db, "/cscope.out$"))
+            set nocscopeverbose " suppress 'duplicate connection' error
+            exe "cs add " . db . " " . path
+            set cscopeverbose
+        endif
+    endfunction
 
-"DON'T call cscope on BufEnter
-" au BufEnter /* call LoadCscope()
+    "DON'T call cscope on BufEnter
+    " au BufEnter /* call LoadCscope()
 
 endif
 " ========================================================================
@@ -305,7 +306,7 @@ set tags+=~/.ctags/cl
 set tags+=~/.ctags/sdl
 set tags+=~/.ctags/boost
 function! Ctags()
-   exec '!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .'
+    exec '!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .'
 endfunc
 " nnoremap <C-[> :pop<CR> << how to fix this?
 " ========================================================================
@@ -374,7 +375,7 @@ set statusline=%f\%m\ #%n\ >%v\ %l/%L[%p%%]\ [%b\ 0x%B]\ %{getcwd()}
 " ========================================================================
 " Custom keyboard shortcuts
 " ========================================================================
-set pastetoggle=<F3> "TODO: this is just temporary. Remember to change this.
+set pastetoggle=<F2> "TODO: this is just temporary. Remember to change this.
 
 "show non-visual chars
 " set listchars=tab:>_,trail:-,extends:>,precedes:<,eol:;
@@ -397,7 +398,7 @@ nmap <silent> ,ev :e $MYVIMRC<cr>
 nmap <silent> ,sv :so $MYVIMRC<cr>
 
 " if (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8') && version >= 700
-    " let &listchars = "tab:\u21e5\u00b7,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u26ad"
+" let &listchars = "tab:\u21e5\u00b7,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u26ad"
 " else
 " endif
 
@@ -408,7 +409,7 @@ nmap <silent> ,sv :so $MYVIMRC<cr>
 " ========================================================================
 function! ClangCheck()
     if &ft == "c" || &ft == "cpp" || &ft == "h" || &ft == "hpp"    
-       call g:ClangUpdateQuickFix()
+        call g:ClangUpdateQuickFix()
     endif
 endfunc
 " ========================================================================
@@ -418,10 +419,9 @@ endfunc
 " ========================================================================
 " silent! map <silent> <F2> :TlistToggle<CR> 
 "silent! nnoremap <silent> <F2> :TlistUpdate<CR> 
-" silent! map <silent> <F3> :NERDTreeToggle<CR> 
-" silent! map <silent> <F4> :GundoToggle<CR> 
-nmap <F2> :NERDTreeToggle<CR>
-nmap <leader>ft :NERDTreeToggle<CR>
+silent! map <silent> <F5> :GundoToggle<CR> 
+" nmap <F2> :NERDTreeToggle<CR>
+" nmap <leader>ft :NERDTreeToggle<CR>
 "silent! nnoremap <silent> <leader>ff :CommandT<CR> 
 silent! nnoremap <silent> <leader>bb :BufExplorer<CR> 
 silent! nnoremap <silent> <leader>jj :FufJumpList<CR>
@@ -546,7 +546,7 @@ let NERDTreeShowHidden=1
 " let NERDTreeQuitOnOpen=1          " Quit on opening files from the tree
 " let NERDTreeHighlightCursorline=1 " Highlight the selected entry in the tree
 " let NERDTreeWinPos='right'
- let NERDTreeWinSize=40 
+let NERDTreeWinSize=40 
 " ========================================================================
 
 " ======================================================================== 
@@ -569,19 +569,19 @@ let g:pad_window_height = 20
 " Custom functions
 " ======================================================================== 
 function! CloseHiddenBuffers()
-  " figure out which buffers are visible in any tab
-  let visible = {}
-  for t in range(1, tabpagenr('$'))
-    for b in tabpagebuflist(t)
-      let visible[b] = 1
+    " figure out which buffers are visible in any tab
+    let visible = {}
+    for t in range(1, tabpagenr('$'))
+        for b in tabpagebuflist(t)
+            let visible[b] = 1
+        endfor
     endfor
-  endfor
-  " close any buffer that's loaded and not visible
-  for b in range(1, bufnr('$'))
-    if bufloaded(b) && !has_key(visible, b)
-      exe 'bd ' . b
-    endif
-  endfor
+    " close any buffer that's loaded and not visible
+    for b in range(1, bufnr('$'))
+        if bufloaded(b) && !has_key(visible, b)
+            exe 'bd ' . b
+        endif
+    endfor
 endfun
 
 function! NumberToggle()
@@ -616,14 +616,14 @@ colorscheme lucius
 
 "TEST
 function! OpenURL(url)
-  if has("win32")
-    exe "!start cmd /cstart /b ".a:url.""
-  elseif $DISPLAY !~ '^\w'
-    exe "silent !sensible-browser \"".a:url."\""
-  else
-    exe "silent !sensible-browser -T \"".a:url."\""
-  endif
-  redraw!
+    if has("win32")
+        exe "!start cmd /cstart /b ".a:url.""
+    elseif $DISPLAY !~ '^\w'
+        exe "silent !sensible-browser \"".a:url."\""
+    else
+        exe "silent !sensible-browser -T \"".a:url."\""
+    endif
+    redraw!
 endfunction
 
 
@@ -676,9 +676,15 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_max_depth = 4
 let g:ctrlp_max_files=10000
 let g:ctrlp_show_hidden = 1
+let g:ctrlp_follow_symlinks=1
+let g:ctrlp_working_path_mode=0
+let g:ctrlp_cache_dir = '~/.vim/.cache/ctrlp'
 let g:ctrlp_custom_ignore = ''
 let g:ctrlp_max_height = 25
-let g:ctrlp_map = '<leader>p'
+" let g:ctrlp_clear_cache_on_exit=0
+
+let g:ctrlp_map = '<leader>pp'
+map <leader>pt :CtrlPBufTag<cr>
 " let g:ctrlp_custom_ignore = {
 " 
 "   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
@@ -699,8 +705,14 @@ set updatetime=200
 let g:quicktask_autosave=1
 
 "Yankring
-nnoremap <silent> <leader>yr :YRShow<CR>
-let g:yankring_window_height = 25
+" let g:yankring_window_height = 25
+let g:yankring_replace_n_nkey = '<C-BS>'
+let g:yankring_replace_n_pkey = '<BS>'
+let g:yankring_history_dir='~/.vim/.cache'
+function! YRRunAfterMaps()
+    nnoremap Y :<C-U>YRYankCount 'y$'<CR>
+endfunction
+map <leader>yr :YRShow<CR>
 
 "OmniCppComplete
 let OmniCpp_NamespaceSearch = 1
@@ -763,3 +775,48 @@ cmap E<cr> Ex<cr>
 "Handy substitution
 nnoremap & :'{,'}s/<c-r>=expand('<cword>')<cr>/
 vnoremap & "*y<Esc>:<c-u>'{,'}s/<c-r>=substitute(escape(@*, '\/.*$^~[]'), "\n", '\\n', "g")<cr>/
+
+
+" ======================================================================== 
+" Experimental stuff...
+" ======================================================================== 
+function! Preserve(command)
+    " preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " do the business:
+    execute a:command
+    " clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+
+function! StripTrailingWhitespace()
+    call Preserve("%s/\\s\\+$//e")
+endfunction
+
+nmap <leader>fef :call Preserve("normal gg=G")<CR>
+nmap <leader>f$ :call StripTrailingWhitespace()<CR>
+vmap <leader>s :sort<cr>
+
+" DO I WANT THIS?
+" " reselect visual block after indent
+" vnoremap < <gv
+" vnoremap > >gv
+
+"TRY THIS OUT!
+" find current word in quickfix
+nnoremap <leader>fw :execute "vimgrep ".expand("<cword>")." %"<cr>:copen<cr>
+" find last search in quickfix
+nnoremap <leader>ff :execute 'vimgrep /'.@/.'/g %'<cr>:copen<cr>
+
+"GOLDEN RATIO < this is cool...
+let g:golden_ratio_autocommand=0
+let g:golden_ratio_wrap_ignored=0
+map <F4> :GoldenRatioToggle<cr>
+
+" "tabular << how to resolve mapping conflict here?
+" nnoremap <Leader>a= :Tabularize /=<CR>
+" vnoremap <Leader>a= :Tabularize /=<CR>
+" ======================================================================== 
