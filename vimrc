@@ -23,6 +23,8 @@ call pathogen#helptags()
 " Add xptemplate global personal directory
 if has("unix")
     set runtimepath+=~/.vim/xpt-personal
+elseif has("win32")
+    set runtimepath+=~\vimfiles\xpt-personal
 endif
 
 " ========================================================================
@@ -240,11 +242,13 @@ command! -nargs=+ Cgrep execute 'lgrep! <args> * -R' | lopen 16
 command! Cgrepw execute "lgrep! " . expand("<cword>") . " * -R" | lopen 16
 
 "store temporary files in a central folder 
-if isdirectory($HOME . '/.vim/tmp') == 0
-    :silent !mkdir -p ~/.vim/tmp > /dev/null 2>&1
+if has("unix")
+    set backupdir=~/.vim/tmp
+    set directory=~/.vim/tmp 
+elseif has("win32")
+    set backupdir=~\vimfiles\tmp
+    set directory=~\vimfiles\tmp 
 endif
-set backupdir=~/.vim/tmp
-set directory=~/.vim/tmp 
 
 " Force saving files that require root permission
 function! SudoWrite()
@@ -308,14 +312,15 @@ endfunc
 " ========================================================================
 
 " ========================================================================
-" Persistant undo (TODO: is this cross-platform?)
+" Persistant undo
 " ========================================================================
 if exists("+undofile")
-    if isdirectory($HOME . '/.vim/undodir') == 0
-        :silent !mkdir -p ~/.vim/undodir > /dev/null 2>&1
-    endif
     au BufWritePre /tmp/* setlocal noundofile
-    set undodir=~/.vim/undodir
+    if has("unix")
+        set undodir=~/.vim/undodir
+    elseif has("win32")
+        set undodir=~\vimfiles\undodir
+    endif
     set undofile
     set undolevels=1000 "maximum number of changes that can be undone
     set undoreload=10000 "maximum number lines to save for undo on a buffer reload
@@ -555,13 +560,6 @@ nmap <leader>tl :TlistToggle<cr>
 " ======================================================================== 
 
 " ======================================================================== 
-" Vim-pad
-" ======================================================================== 
-let g:pad_dir = "~/notes/"
-let g:pad_window_height = 20
-" ======================================================================== 
-
-" ======================================================================== 
 " Custom functions
 " ======================================================================== 
 function! CloseHiddenBuffers()
@@ -598,12 +596,20 @@ function! ChdirToggle()
     endif
 endfun
 nnoremap ,ct :call ChdirToggle()<cr>
-nmap <silent> ,et :e /home/instructor/.vim/xpt-personal/ftplugin/<cr>
+
+if has("unix")
+    nmap <silent> ,et :e ~/.vim/xpt-personal/ftplugin/<cr>
+elseif has("win32")
+    nmap <silent> ,et :e ~\vimfiles\xpt-personal\ftplugin\<cr>
+endif
+
 " set makeef=make.err
 set makeprg=make
-nmap ,ee :w<cr>:! ./app<cr>
-nmap ,rr :w<cr>:execute "!~/.vim/makebg.sh"<cr><cr>
-nmap ,dd :w<cr>:execute "!~/.vim/makerunbg.sh"<cr><cr>
+if has("unix")
+    nmap ,ee :w<cr>:! ./app<cr>
+    nmap ,rr :w<cr>:execute "!~/.vim/makebg.sh"<cr><cr>
+    nmap ,dd :w<cr>:execute "!~/.vim/makerunbg.sh"<cr><cr>
+endif
 
 
 " ======================================================================== 
@@ -673,7 +679,11 @@ let g:ctrlp_max_files=10000
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_follow_symlinks=1
 let g:ctrlp_working_path_mode=0
-let g:ctrlp_cache_dir = '~/.vim/.cache/ctrlp'
+if has("unix")
+    let g:ctrlp_cache_dir = '~/.vim/.cache/ctrlp'
+elseif has("win32")
+    let g:ctrlp_cache_dir = '~\vimfiles\.cache/ctrlp'
+endif
 let g:ctrlp_custom_ignore = ''
 let g:ctrlp_max_height = 25
 " let g:ctrlp_clear_cache_on_exit=0
@@ -703,7 +713,11 @@ let g:quicktask_autosave=1
 " let g:yankring_window_height = 25
 let g:yankring_replace_n_nkey = '<C-BS>'
 let g:yankring_replace_n_pkey = '<BS>'
-let g:yankring_history_dir='~/.vim/.cache'
+if has("unix")
+    let g:yankring_history_dir='~/.vim/.cache'
+elseif has("win32")
+    let g:yankring_history_dir='~\vimfiles\.cache'
+endif
 function! YRRunAfterMaps()
     nnoremap Y :<C-U>YRYankCount 'y$'<CR>
 endfunction
