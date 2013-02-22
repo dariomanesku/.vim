@@ -1,7 +1,10 @@
 *.swp
-tmp/*
-undodir/*
 spell/*
 .netrwhist
 .VimballRecord
+.tmp/*
+_tmp/*
+.undodir/*
+_undodir/*
 .cache/*
+_cache/*

@@ -243,11 +243,11 @@ command! Cgrepw execute "lgrep! " . expand("<cword>") . " * -R" | lopen 16
 
 "store temporary files in a central folder 
 if has("unix")
-    set backupdir=~/.vim/tmp
-    set directory=~/.vim/tmp 
+    set backupdir=~/.vim/.tmp
+    set directory=~/.vim/.tmp 
 elseif has("win32")
-    set backupdir=~\vimfiles\tmp
-    set directory=~\vimfiles\tmp 
+    set backupdir=~\vimfiles\_tmp
+    set directory=~\vimfiles\_tmp 
 endif
 
 " Force saving files that require root permission
@@ -317,9 +317,9 @@ endfunc
 if exists("+undofile")
     au BufWritePre /tmp/* setlocal noundofile
     if has("unix")
-        set undodir=~/.vim/undodir
+        set undodir=~/.vim/.undodir
     elseif has("win32")
-        set undodir=~\vimfiles\undodir
+        set undodir=~\vimfiles\_undodir
     endif
     set undofile
     set undolevels=1000 "maximum number of changes that can be undone
@@ -682,7 +682,7 @@ let g:ctrlp_working_path_mode=0
 if has("unix")
     let g:ctrlp_cache_dir = '~/.vim/.cache/ctrlp'
 elseif has("win32")
-    let g:ctrlp_cache_dir = '~\vimfiles\.cache/ctrlp'
+    let g:ctrlp_cache_dir = '~\vimfiles\_cache/ctrlp'
 endif
 let g:ctrlp_custom_ignore = ''
 let g:ctrlp_max_height = 25
@@ -716,7 +716,7 @@ let g:yankring_replace_n_pkey = '<BS>'
 if has("unix")
     let g:yankring_history_dir='~/.vim/.cache'
 elseif has("win32")
-    let g:yankring_history_dir='~\vimfiles\.cache'
+    let g:yankring_history_dir='~\vimfiles\_cache'
 endif
 function! YRRunAfterMaps()
     nnoremap Y :<C-U>YRYankCount 'y$'<CR>
