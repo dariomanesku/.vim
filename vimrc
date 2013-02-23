@@ -51,6 +51,8 @@ set lazyredraw
 "no error bells
 set noeb vb t_vb=
 
+set encoding=utf8
+
 set history=500	   
 
 "TEST (do I like this this way?)
@@ -246,8 +248,8 @@ if has("unix")
     set backupdir=~/.vim/.tmp
     set directory=~/.vim/.tmp 
 elseif has("win32")
-    set backupdir=~\vimfiles\_tmp
-    set directory=~\vimfiles\_tmp 
+    set backupdir=~\vimfiles\.tmp
+    set directory=~\vimfiles\.tmp 
 endif
 
 " Force saving files that require root permission
@@ -319,7 +321,7 @@ if exists("+undofile")
     if has("unix")
         set undodir=~/.vim/.undodir
     elseif has("win32")
-        set undodir=~\vimfiles\_undodir
+        set undodir=~\vimfiles\.undodir
     endif
     set undofile
     set undolevels=1000 "maximum number of changes that can be undone
