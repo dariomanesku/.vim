@@ -2,7 +2,7 @@
 " Plugins not to be loaded
 " ========================================================================
 let g:pathogen_disabled = []
-"""" call add(g:pathogen_disabled, "CSApprox") "same colors in vim and gvim
+call add(g:pathogen_disabled, "CSApprox") "same colors in vim and gvim
 call add(g:pathogen_disabled, "0scan")
 call add(g:pathogen_disabled, "showmarks") "overriding my ,mh
 call add(g:pathogen_disabled, "lusty")
@@ -10,6 +10,7 @@ call add(g:pathogen_disabled, "recover")
 call add(g:pathogen_disabled, "nerdtree")
 call add(g:pathogen_disabled, "sparkup") "this shit is screwing ctrl+n in insert mode on html files...
 call add(g:pathogen_disabled, "vim-seek") "this is screwing s in insert mode
+call add(g:pathogen_disabled, "YankRing") "this is screwing paste over visual selection
 "TODO: try YouCompleteMe
 " ========================================================================
 
@@ -33,11 +34,6 @@ endif
 syntax on
 filetype plugin indent on
 set term=screen-256color
-" colorscheme xoria256
-" colorscheme zenburn
-" colorscheme jellybeans
-"colorscheme leo
-colorscheme lucius
 let mapleader = ","
 
 set number       " show line numbers
@@ -372,7 +368,14 @@ hi def link User2 DiffDelete
 "set statusline +=%4c\ %*     " column number
 "set statusline +=0x%04B\%*\  " character under cursor
 " set statusline +=%f\%m\ #%n\ >%v\ %l/%L[%p%%]\ [%b\ 0x%B]%=%{getcwd()}
-set statusline=%f\%m\ #%n\ >%v\ %l/%L[%p%%]\ [%b\ 0x%B]\ %{getcwd()}
+
+" set titlestring={%{v:servername}} "try this
+set titlestring="WHERE DO I SEE THIS?!"
+
+function! GetServerName()
+    return v:servername
+endfunc
+set statusline=%f\%m\ #%n\ >%v\ %l/%L[%p%%]\ [%b\ 0x%B]\ %{getcwd()}%=%{GetServerName()}
 " ========================================================================
 
 " ========================================================================
@@ -768,12 +771,6 @@ let g:netrw_retmap         = 1
 let g:netrw_silent         = 0
 let g:netrw_special_syntax = 1
 
-let g:Tex_DefaultTargetFormat='pdf'
-let g:LatexBox_latexmk_options = "-pdf"
-let g:LatexBox_viewer = "evince"
-let g:tex_pdf_map_keys = 0
-nmap <silent> ,bl :BuildTexPdf<CR>
-
 " ======================================================================== 
 " Easymotion
 " ======================================================================== 
@@ -831,3 +828,9 @@ map <F4> :GoldenRatioToggle<cr>
 " nnoremap <Leader>a= :Tabularize /=<CR>
 " vnoremap <Leader>a= :Tabularize /=<CR>
 " ======================================================================== 
+"
+" colorscheme xoria256
+" colorscheme zenburn
+" colorscheme jellybeans
+"colorscheme leo
+colorscheme lucius
