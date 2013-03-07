@@ -36,6 +36,9 @@ filetype plugin indent on
 set term=screen-256color
 let mapleader = ","
 
+nmap <silent> ,ev :e $MYVIMRC<cr>
+nmap <silent> ,sv :so $MYVIMRC<cr>
+
 set number       " show line numbers
 set ignorecase " ignore case
 set hidden       " enable unsaved buffers
@@ -400,9 +403,6 @@ autocmd ColorScheme * highlight NonText ctermfg=gray
 autocmd ColorScheme * highlight SpecialKey guifg=gray
 autocmd ColorScheme * highlight NonText guifg=gray
 
-nmap <silent> ,ev :e $MYVIMRC<cr>
-nmap <silent> ,sv :so $MYVIMRC<cr>
-
 " if (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8') && version >= 700
 " let &listchars = "tab:\u21e5\u00b7,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u26ad"
 " else
@@ -432,7 +432,7 @@ silent! map <silent> <F5> :GundoToggle<CR>
 silent! nnoremap <silent> <leader>bb :BufExplorer<CR> 
 silent! nnoremap <silent> <leader>jj :FufJumpList<CR>
 silent! nnoremap <silent> <leader>qf :call ClangCheck()<CR>
-silent! nmap <silent> <leader>cw :cwindow<CR>
+silent! nmap <silent> <leader>cw :cwindow 15<CR>
 silent! nmap <silent> <leader>cl :clist<CR>
 silent! nmap <silent> <leader>cc :cclose<CR>
 silent! nmap <silent> <leader>lw :lwindow<CR>
