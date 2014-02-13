@@ -10,6 +10,7 @@ linux:
 	cd ~/.vim
 	mkdir bundle
 	mkdir .tmp
+	mkdir .undodir
 	git clone https://github.com/gmarik/vundle.git bundle/vundle
 
 windows:
@@ -19,4 +20,5 @@ windows:
 	cd ~/vimfiles
 	mkdir bundle
 	mkdir .tmp
+	mkdir .undodir
 	git clone https://github.com/gmarik/vundle.git bundle/vundle
