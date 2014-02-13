@@ -75,7 +75,7 @@ set cino=g0
 set autoindent
 set smartindent
 set cindent
-set indentexpr
+"set indentexpr "TODO !
 
 set copyindent
 
@@ -95,9 +95,11 @@ set complete-=t "do not search tags (completeopt doesn't work well with some gen
 
 "gVim
 if has("gui_running")
-    let &guioptions="racg"
-    "set guifont=Lucida\ Console
-    "winsize 190 70
+	let &guioptions="racg"
+	if has("win32")
+		set guifont=Lucida\ Console
+		winsize 190 70
+	endif
 endif
 
 function! ToggleGUI()
