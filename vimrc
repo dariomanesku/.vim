@@ -3,10 +3,11 @@ filetype off
 
 if has("unix")
     set runtimepath+=~/.vim/bundle/vundle/
+	call vundle#rc()
 elseif has("win32")
-    set runtimepath+=~\vimfiles\bundle\vundle\
+    set runtimepath+=~\vimfiles\bundle\vundle
+	call vundle#rc('$HOME/vimfiles/bundle')
 endif
-call vundle#rc()
 
 Bundle 'https://github.com/gmarik/vundle'
 
