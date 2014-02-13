@@ -21,6 +21,7 @@ Bundle 'https://github.com/vim-scripts/VisIncr'
 Bundle 'https://github.com/vim-scripts/Align'
 Bundle 'https://github.com/vim-scripts/undo_tags'
 Bundle 'https://github.com/tomtom/tcomment_vim'
+Bundle 'https://github.com/ntpeters/vim-better-whitespace'
 
 Bundle 'https://github.com/vim-scripts/listmaps.vim'
 
