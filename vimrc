@@ -413,7 +413,7 @@ set titlestring="WHERE DO I SEE THIS?!"
 function! GetServerName()
     return v:servername
 endfunc
-set statusline=%f\%m\ [%{getcwd()}]\ #%n\ >%v\ %l/%L[%p%%]\ [%b\ 0x%B]%=%{GetServerName()}
+set statusline=#%n\ %f\%m\ >%v\ %l/%L[%p%%]\ [%b\ 0x%B]\ [%{getcwd()}]%=%{GetServerName()}
 " ========================================================================
 
 " ========================================================================
