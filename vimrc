@@ -48,7 +48,7 @@ set fileencoding=utf8
 " set encoding=latin1
 " set fileencoding=latin1
 
-set history=500	   
+set history=500
 
 "TEST (do I like this this way?)
 " set notimeout
@@ -64,9 +64,9 @@ set cindent
 set smartindent
 
 "tabs
-set tabstop=4 
+set tabstop=4
 set softtabstop=4
-set shiftwidth=4 
+set shiftwidth=4
 set noexpandtab
 set smarttab
 
@@ -180,7 +180,7 @@ vnoremap ` '
 " In Makefiles, don't expand tabs to spaces, since we need the actual tabs
 autocmd FileType make set noexpandtab
 
-"don't accidently hit this when using visual line selection 
+"don't accidently hit this when using visual line selection
 map K k
 
 "insert timestamp
@@ -230,13 +230,13 @@ set grepprg=grep\ -rnH\ --exclude='.*.swp'\ --exclude='*~'\ --exclude=tags
 command! -nargs=+ Cgrep execute 'lgrep! <args> * -R' | lopen 16
 command! Cgrepw execute "lgrep! " . expand("<cword>") . " * -R" | lopen 16
 
-"store temporary files in a central folder 
+"store temporary files in a central folder
 if has("unix")
     set backupdir=~/.vim/.tmp
-    set directory=~/.vim/.tmp 
+    set directory=~/.vim/.tmp
 elseif has("win32")
     set backupdir=~\vimfiles\.tmp
-    set directory=~\vimfiles\.tmp 
+    set directory=~\vimfiles\.tmp
 endif
 
 " Force saving files that require root permission
@@ -270,9 +270,9 @@ com! MirrorSplitBelow : call Mirror('split | wincmd j')
 com! MirrorAbove      : call Mirror('wincmd k')
 com! MirrorSplitAbove : call Mirror('split | wincmd k')
 
-" ======================================================================== 
+" ========================================================================
 " Mirror keyboard maps
-" ======================================================================== 
+" ========================================================================
 nmap <silent> <leader>ml :MirrorRight<CR>
 nmap <silent> <leader>mL :MirrorSplitRight<CR>
 nmap <silent> <leader>mh :MirrorLeft<CR>
@@ -281,14 +281,14 @@ nmap <silent> <leader>mk :MirrorAbove<CR>
 nmap <silent> <leader>mK :MirrorSplitAbove<CR>
 nmap <silent> <leader>mj :MirrorBelow<CR>
 nmap <silent> <leader>mJ :MirrorSplitBelow<CR>
-" ======================================================================== 
+" ========================================================================
 
 " ========================================================================
 " Mru settings
 " ========================================================================
-let MRU_Max_Entries = 1000 
-let MRU_Exclude_Files = '^/tmp/.*\|^/var/tmp/.*'  " For Unix 
-let MRU_Window_Height = 25 
+let MRU_Max_Entries = 1000
+let MRU_Exclude_Files = '^/tmp/.*\|^/var/tmp/.*'  " For Unix
+let MRU_Window_Height = 25
 nmap <leader>mr :MRU<CR>
 " ========================================================================
 
@@ -297,13 +297,13 @@ nmap <leader>mr :MRU<CR>
 " ========================================================================
 if has("cscope")
     set nocscopetag
-    set csto=1 
+    set csto=1
     set cscopeverbose
 
     "" add any cscope database in current directory
     "if filereadable("cscope.out")
-    "    cs add cscope.out  
-    "" else add the database pointed to by environment variable 
+    "    cs add cscope.out
+    "" else add the database pointed to by environment variable
     "elseif $CSCOPE_DB != ""
     "    cs add $CSCOPE_DB
     "endif
@@ -393,7 +393,7 @@ hi def link User2 DiffDelete
 " Status line
 " ========================================================================
 " set statusline=
-"set statusline +=%{buftabs#statusline()} 
+"set statusline +=%{buftabs#statusline()}
 "set statusline +=%-2.3n        " buffer number
 "set statusline +=%t          " filename
 "set statusline +=%m          " modified
@@ -450,7 +450,7 @@ autocmd ColorScheme * highlight NonText guifg=gray
 " Custom functions
 " ========================================================================
 function! ClangCheck()
-    if &ft == "c" || &ft == "cpp" || &ft == "h" || &ft == "hpp"    
+    if &ft == "c" || &ft == "cpp" || &ft == "h" || &ft == "hpp"
         call g:ClangUpdateQuickFix()
     endif
 endfunc
@@ -469,10 +469,10 @@ silent! nmap <silent> <leader>lc :lclose<CR>
 " ========================================================================
 
 " ========================================================================
-" Clang_complete settings 
+" Clang_complete settings
 " ========================================================================
 let g:clang_auto_select=0
-let g:clang_complete_auto = 0 
+let g:clang_complete_auto = 0
 let g:clang_complete_copen = 1
 let g:clang_hl_errors = 0
 let g:clang_periodic_quickfix = 0
@@ -487,7 +487,7 @@ let g:clang_use_library=1
 " let g:clang_complete_macros=1
 " let g:clang_complete_patterns=1
 let g:clang_user_options = '-std=c++0x -fexceptions -I/usr/include/c++/4.6/x86_64-linux-gnu/. -I/usr/include/c++/4.6/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include/GL -I/usr/local/include/bullet -I/usr/include/ni/'
-" ======================================================================== 
+" ========================================================================
 
 " ========================================================================
 " Gundo settings
@@ -499,17 +499,17 @@ let g:gundo_close_on_revert = 0 "set this to 1 to automatically close the Gundo 
 "let g:gundo_preview_bottom = 1
 map <leader>gt :GundoToggle<cr>
 map <leader>gu :GundoToggle<cr>
-" ======================================================================== 
+" ========================================================================
 
 " ========================================================================
 " Histwin settings
 " ========================================================================
 map <leader>hw :Histwin<cr>
-" ======================================================================== 
+" ========================================================================
 
-" ======================================================================== 
+" ========================================================================
 " FSwitch
-" ======================================================================== 
+" ========================================================================
 nmap <silent> ,sf :FSHere<CR>
 nmap <silent> ,sl :FSRight<CR>
 nmap <silent> ,sL :FSSplitRight<CR>
@@ -519,11 +519,11 @@ nmap <silent> ,sk :FSAbove<CR>
 nmap <silent> ,sK :FSSplitAbove<CR>
 nmap <silent> ,sj :FSBelow<CR>
 nmap <silent> ,sJ :FSSplitBelow<CR>
-" ======================================================================== 
+" ========================================================================
 
-" ======================================================================== 
+" ========================================================================
 " FuzzyFinder settings
-" ======================================================================== 
+" ========================================================================
 let g:fuf_file_exclude = '\v\~$|\.(o|exe|dll|bak|class|meta|lock|orig|jar|swp)$|/test/data\.|(^|[/\\])\.(hg|git|bzr)($|[/\\])'
 " nmap <silent> ,ev :FufFile ~/.vim/<cr>
 nmap <silent> ,eb :FufBuffer<cr>
@@ -533,7 +533,7 @@ let g:fuf_keyNextMode = '<C-e>'
 let g:fuf_splitPathMatching = 0
 let g:fuf_maxMenuWidth = 110
 let g:fuf_timeFormat = ''
-" ======================================================================== 
+" ========================================================================
 
 " ========================================================================
 " NERDTree settings
@@ -552,7 +552,7 @@ let NERDTreeShowHidden=1
 " let NERDTreeQuitOnOpen=1          " Quit on opening files from the tree
 " let NERDTreeHighlightCursorline=1 " Highlight the selected entry in the tree
 " let NERDTreeWinPos='right'
-let NERDTreeWinSize=40 
+let NERDTreeWinSize=40
 function! OpenNerdTree()
     if exists("t:NERDTreeBufName") == 0
         exec 'NERDTree'
@@ -571,25 +571,25 @@ nmap <leader>nh :NERDTreeClose<CR>:NERDTree<CR>
 nmap <leader>nn :call OpenNerdTree()<CR>
 " ========================================================================
 
-" ======================================================================== 
+" ========================================================================
 " Taglist (Tlist) #deprecated
-" ======================================================================== 
+" ========================================================================
 let g:Tlist_Use_Right_Window = 1
 let g:Tlist_Enable_Fold_Column = 0
 let g:Tlist_WinWidth = 35
 " nmap <leader>tl :TlistToggle<cr>
-" ======================================================================== 
+" ========================================================================
 "
-" ======================================================================== 
+" ========================================================================
 " Tagbar
-" ======================================================================== 
+" ========================================================================
 let g:tagbar_width = 70
 nmap <leader>tl :TagbarToggle<cr>
-" ======================================================================== 
+" ========================================================================
 
-" ======================================================================== 
+" ========================================================================
 " Custom functions
-" ======================================================================== 
+" ========================================================================
 function! CloseHiddenBuffers()
     " figure out which buffers are visible in any tab
     let visible = {}
@@ -635,7 +635,7 @@ set makeprg=make
 " endif
 
 
-" ======================================================================== 
+" ========================================================================
 
 "TEST
 function! OpenURL(url)
@@ -714,7 +714,7 @@ let g:ctrlp_cmd = 'CtrlPRoot'
 " nmap ,pp :CtrlPRoot<cr>
 map <leader>pt :CtrlPBufTag<cr>
 " let g:ctrlp_custom_ignore = {
-" 
+"
 "   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
 "   \ 'file': '\v\.(exe|so|dll|o)$',
 "   \ 'link': 'some_bad_symbolic_links',
@@ -752,9 +752,9 @@ autocmd BufNewFile,BufRead *.vp,*.fp,*.gp,*.vs,*.fs,*.gs,*.tcs,*.tes,*.cs,*.vert
 " set cursorline cursorcolumn
 
 
-" ======================================================================== 
+" ========================================================================
 " Mirror keyboard maps
-" ======================================================================== 
+" ========================================================================
 nmap <silent> <leader>ml :MirrorRight<CR>
 nmap <silent> <leader>mL :MirrorSplitRight<CR>
 nmap <silent> <leader>mh :MirrorLeft<CR>
@@ -763,7 +763,7 @@ nmap <silent> <leader>mk :MirrorAbove<CR>
 nmap <silent> <leader>mK :MirrorSplitAbove<CR>
 nmap <silent> <leader>mj :MirrorBelow<CR>
 nmap <silent> <leader>mJ :MirrorSplitBelow<CR>
-" ======================================================================== 
+" ========================================================================
 "
 "
 "TEST
@@ -775,32 +775,32 @@ let g:netrw_retmap         = 1
 let g:netrw_silent         = 0
 let g:netrw_special_syntax = 1
 
-" ======================================================================== 
+" ========================================================================
 " Easymotion
-" ======================================================================== 
+" ========================================================================
 hi link EasyMotionTarget ErrorMsg
 hi link EasyMotionShade  Comment
 let g:EasyMotion_leader_key = 'f'
 let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
 cmap E<cr> Ex<cr>
 
-" " ======================================================================== 
+" " ========================================================================
 " " vim-projectroot
-" " ======================================================================== 
+" " ========================================================================
 " nnoremap <Leader>ack :ProjectRootExe Ack<space>
 " let g:rootmarkers = ['.projectroot','.git','.hg','.svn','.bzr','_darcs','Makefile', 'build.xml']
 " "TODO: manually specified root dir
 " nnoremap <Leader>sr :let g:bookmark_dir=getcwd()<cr>
 " nnoremap <Leader>cr :exec 'cd' g:bookmark_dir
-" " ======================================================================== 
+" " ========================================================================
 
 "Handy substitution
 nnoremap & :'{,'}s/<c-r>=expand('<cword>')<cr>/
 vnoremap & "*y<Esc>:<c-u>'{,'}s/<c-r>=substitute(escape(@*, '\/.*$^~[]'), "\n", '\\n', "g")<cr>/
 
-" ======================================================================== 
+" ========================================================================
 " Experimental stuff...
-" ======================================================================== 
+" ========================================================================
 function! Preserve(command)
     " preparation: save last search, and cursor position.
     let _s=@/
@@ -840,7 +840,7 @@ map <F4> :GoldenRatioToggle<cr>
 "tcomment "TODO: this doesn't work !
 let g:tcommentMapLeader1 = '<c-/>'
 
-" ======================================================================== 
+" ========================================================================
 
 " colorscheme xoria256
 " colorscheme zenburn
