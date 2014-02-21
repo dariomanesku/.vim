@@ -25,6 +25,7 @@ Bundle 'https://github.com/tomtom/tcomment_vim'
 Bundle 'https://github.com/ntpeters/vim-better-whitespace'
 
 Bundle 'https://github.com/vim-scripts/listmaps.vim'
+Bundle 'https://github.com/vim-scripts/ScrollColors'
 
 filetype plugin indent on
 
