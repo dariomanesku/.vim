@@ -23,7 +23,7 @@ Bundle 'https://github.com/vim-scripts/Align'
 Bundle 'https://github.com/vim-scripts/undo_tags'
 Bundle 'https://github.com/tomtom/tcomment_vim'
 Bundle 'https://github.com/ntpeters/vim-better-whitespace'
-
+Bundle 'https://github.com/luochen1990/rainbow'
 Bundle 'https://github.com/vim-scripts/listmaps.vim'
 Bundle 'https://github.com/vim-scripts/ScrollColors'
 
@@ -932,3 +932,5 @@ endfunction
 :command! -range=% -nargs=0 Space2Tab execute '<line1>,<line2>s#^\( \{'.&ts.'\}\)\+#\=repeat("\t", len(submatch(0))/' . &ts . ')'
 
 " TODO: add current dir to path
+
+let g:rainbow_active = 0
