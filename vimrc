@@ -467,10 +467,11 @@ command! -nargs=0 HideChars    :call HideSpecialChars()
 "autocmd ColorScheme * highlight NonText     ctermfg=gray
 "autocmd ColorScheme * highlight SpecialKey  guifg=gray
 "autocmd ColorScheme * highlight NonText     guifg=gray
-autocmd ColorScheme * highlight SpecialKey  ctermfg=240
-autocmd ColorScheme * highlight NonText     ctermfg=240
-autocmd ColorScheme * highlight SpecialKey  guifg=#404040
-autocmd ColorScheme * highlight NonText     guifg=#404040
+"
+"autocmd ColorScheme * highlight SpecialKey  ctermfg=238
+"autocmd ColorScheme * highlight NonText     ctermfg=238
+"autocmd ColorScheme * highlight SpecialKey  guifg=#404040
+"autocmd ColorScheme * highlight NonText     guifg=#404040
 
 " if (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8') && version >= 700
 " let &listchars = "tab:\u21e5\u00b7,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u26ad"
