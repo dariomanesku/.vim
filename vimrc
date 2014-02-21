@@ -37,7 +37,7 @@ nmap <silent> ,sv :so $MYVIMRC<cr>
 set hidden       " enable unsaved buffers
 set title
 set showmatch    " show matching braces
-set cursorline
+set nocursorline
 
 "no error bells
 set noeb vb t_vb=
