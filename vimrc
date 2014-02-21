@@ -505,22 +505,24 @@ silent! nmap <silent> <leader>lc :lclose<CR>
 " ========================================================================
 " Clang_complete settings
 " ========================================================================
-let g:clang_auto_select=0
-let g:clang_complete_auto = 0
-let g:clang_complete_copen = 1
-let g:clang_hl_errors = 0
-let g:clang_periodic_quickfix = 0
-let g:clang_snippets = 1
-let g:clang_snippets_engine = "clang_complete"
-let g:clang_conceral_snippets = 1
-let g:clang_exec="clang"
-let g:clang_library_path="/usr/lib/"
-" let g:clang_use_library=1 //TODO: 666 << use it
-let g:clang_use_library=1
-" let g:clang_auto_user_options=1
-" let g:clang_complete_macros=1
-" let g:clang_complete_patterns=1
-let g:clang_user_options = '-std=c++0x -fexceptions -I/usr/include/c++/4.6/x86_64-linux-gnu/. -I/usr/include/c++/4.6/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include/GL -I/usr/local/include/bullet -I/usr/include/ni/'
+if has("unix")
+	let g:clang_auto_select=0
+	let g:clang_complete_auto = 0
+	let g:clang_complete_copen = 1
+	let g:clang_hl_errors = 0
+	let g:clang_periodic_quickfix = 0
+	let g:clang_snippets = 1
+	let g:clang_snippets_engine = "clang_complete"
+	let g:clang_conceral_snippets = 1
+	let g:clang_exec="clang"
+	"let g:clang_library_path="/usr/lib/llvm-3.4/lib/"
+	let g:clang_use_library=0
+	" let g:clang_auto_user_options=1
+	" let g:clang_complete_macros=1
+	" let g:clang_complete_patterns=1
+	" let g:clang_user_options = '-std=c++11 -fexceptions -I /usr/include/c++/4.6/x84_64-linux-gnu/. -I/usr/include/c++/3.6/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include/GL'
+	let g:clang_user_options = '-std=c++11'
+endif
 " ========================================================================
 
 " ========================================================================
