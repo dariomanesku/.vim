@@ -424,20 +424,52 @@ set pastetoggle=<F2> "TODO: this is just temporary. Remember to change this.
 set listchars=
 if (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8') && version >= 700
     set listchars+=tab:×­
-    set listchars+=trail:·
     set listchars+=extends:»
     set listchars+=precedes:«
     set listchars+=nbsp:¬
-    set listchars+=eol:¶
+    "set listchars+=trail:·
+    "set listchars+=eol:¶
 else
     set listchars+=tab:>_,trail:-,extends:>,precedes:<,eol:;
 endif
 
+set list
 nmap <leader>li :set list!<CR>
-autocmd ColorScheme * highlight SpecialKey ctermfg=gray
-autocmd ColorScheme * highlight NonText ctermfg=gray
-autocmd ColorScheme * highlight SpecialKey guifg=gray
-autocmd ColorScheme * highlight NonText guifg=gray
+
+let s:showAllChars = 0
+
+function! ShowAllChars()
+	set listchars+=trail:·
+	set listchars+=eol:¶
+	let s:showAllChars = 1
+endfunc
+
+function! HideSpecialChars()
+	set listchars-=trail:·
+	set listchars-=eol:¶
+	let s:showAllChars = 0
+endfunc
+
+function! ToggleChars()
+	if (s:showAllChars)
+		call HideSpecialChars()
+	else
+		call ShowAllChars()
+	endif
+endfunc
+
+command! -nargs=0 ToggleChars  :call ToggleChars()
+command! -nargs=0 ShowAllChars :call ShowAllChars()
+command! -nargs=0 HideChars    :call HideSpecialChars()
+
+"autocmd ColorScheme * highlight SpecialKey  ctermfg=gray
+"autocmd ColorScheme * highlight NonText     ctermfg=gray
+"autocmd ColorScheme * highlight SpecialKey  guifg=gray
+"autocmd ColorScheme * highlight NonText     guifg=gray
+autocmd ColorScheme * highlight SpecialKey  ctermfg=240
+autocmd ColorScheme * highlight NonText     ctermfg=240
+autocmd ColorScheme * highlight SpecialKey  guifg=#404040
+autocmd ColorScheme * highlight NonText     guifg=#404040
 
 " if (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8') && version >= 700
 " let &listchars = "tab:\u21e5\u00b7,trail:\u2423,extends:\u21c9,precedes:\u21c7,nbsp:\u26ad"
