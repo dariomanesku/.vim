@@ -47,6 +47,7 @@ logfile="${3:-make.log}"
 	#fi
 
 	vim --servername "$server" --remote-expr "CGetFile('$logfile')" ;
+	vim --servername "$server" --remote-expr "Redraw()";
 
 	if [ $success -eq 0 ]; then
 		vim --servername "$server" --remote-expr "PrintBuildSuccessful()" ;

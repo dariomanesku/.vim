@@ -70,7 +70,7 @@ set smartcase
 set virtualedit=all "enable cursor navigation in virtual space
 
 set cindent
-set cino=g0b1
+set cino=g0b1:0
 set smartindent "no effect when cindent is on
 
 set autoindent  "copy indent from current line when starging a new line
@@ -85,14 +85,16 @@ set noexpandtab
 set smarttab
 
 "allow backspace over the start of insert
-set backspace=start
+set backspace=start,indent,eol
 
 "chdir settings
-"set autochdir
+set autochdir
 "autocmd BufEnter * silent! lcd %:p:h
-map <leader>cd :lcd %:h<CR>
+"map <leader>cd :lcd %:h<CR>
 
 set autoread "auto reload file contents on external change
+
+set cpoptions+=$ "put a $ sign at the end of range when changing text
 
 set noshowfulltag "because showfulltag doesn't work well with longest completeopt!
 set completeopt=menu,longest
@@ -100,8 +102,6 @@ set complete-=i "do not search include files (seach by will with Ctrl-X Ctrl-I)
 set complete-=t "do not search tags (completeopt doesn't work well with some generated tags that begin with space...)
 
 set laststatus=2 "always show status line
-
-set pastetoggle=<F2> "TODO: this is just temporary. Remember to change this.
 
 "gVim
 if has("gui_running")
@@ -130,11 +130,14 @@ function! ToggleGUI()
 	endif
 endfunc
 
-" up/down movement on wrapped lines
+"up/down movement on wrapped lines
 nnoremap j gj
 nnoremap k gk
 
-" show this sign at the beginning of each wrapped line
+"insert only one space when joining lines that contain punctuation
+set nojoinspaces
+
+"show this sign at the beginning of each wrapped line
 set showbreak=°°
 
 set display=""
@@ -211,7 +214,7 @@ let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 if has("unix")
 	let s:tmpdir = "~/.vim/.tmp"
 elseif has("win32")
-	let s:tmpdir = "~\vimfiles\.tmp"
+	let s:tmpdir = "~\\vimfiles\\_tmp"
 endif
 if !exists("s:tmpdir")
 	call mkdir(expand(s:tmpdir))
@@ -225,7 +228,7 @@ if exists("+undofile")
 	if has("unix")
 		let s:undodir="~/.vim/.undodir"
 	elseif has("win32")
-		let s:undodir="~\vimfiles\.undodir"
+		let s:undodir="~\\vimfiles\\_undodir"
 	endif
 	if !exists("s:undodir")
 		call mkdir(expand(s:undodir))
@@ -363,6 +366,7 @@ map <leader>pt :CtrlPBufTag<cr>
 "   \ 'file': '\v\.(exe|so|dll|o)$',
 "   \ 'link': 'some_bad_symbolic_links',
 "   \ }
+let g:ctrlp_switch_buffer = 'T' "go to buffer with ctrl-t
 " ========================================================================
 
 " ========================================================================
@@ -447,7 +451,7 @@ endif
 function! GetServerName()
 	return v:servername
 endfunc
-set statusline=#%n\ %f\%m\ >%v\ %l/%L[%p%%]\ [%b\ 0x%B]\ [%{getcwd()}]%=%{GetServerName()}
+set statusline=#%n\ %f\%m\ [%p%%]\ >%v\ %l/%L\ [%b\ 0x%B]%=[%{getcwd()}]\ %{GetServerName()}
 
 "Status line with file size visualization (not working properly in split mode)
 func! STL()
@@ -766,5 +770,9 @@ endfunc
 
 function! CGetFile(filename)
 	exec 'cgetfile '.a:filename
+endfunc
+
+function! Redraw()
+	redraw!
 endfunc
 " ========================================================================
