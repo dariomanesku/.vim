@@ -207,11 +207,17 @@ hi Cursor           ctermfg=bg              ctermbg=153
 hi CursorIM         guifg=bg                guibg=#96cdcd
 hi CursorIM         ctermfg=bg              ctermbg=116
 " cursor column
-hi CursorColumn     guifg=NONE              guibg=#404448           gui=none
+"hi CursorColumn     guifg=NONE              guibg=#404448           gui=none
+hi CursorColumn     guifg=NONE              guibg=gray20            gui=none
 hi CursorColumn     ctermfg=NONE            ctermbg=236             cterm=none
 " cursor line/row
-hi CursorLine       gui=NONE                guibg=#404448           gui=none
+"hi CursorLine       gui=NONE                guibg=#404448           gui=none
+hi CursorLine       gui=NONE                guibg=gray20            gui=none
 hi CursorLine       cterm=NONE              ctermbg=236             cterm=none
+
+" CUSTOM
+hi CursorLineNr     gui=NONE                guibg=#404448           gui=none
+hi CursorLineNr     gui=NONE                guifg=#858585           gui=none
 
 
 " Misc
