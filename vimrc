@@ -50,7 +50,14 @@ nmap <silent> ,sv :so $MYVIMRC<cr>
 
 set hidden       " enable unsaved buffers
 set showmatch    " show matching braces
-set nocursorline
+
+set cursorline
+" highlight only current window
+augroup CursorLine
+au!
+au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+au WinLeave * setlocal nocursorline
+augroup END
 
 "no error bells
 set noeb vb t_vb=
@@ -94,7 +101,7 @@ set autochdir
 
 set autoread "auto reload file contents on external change
 
-set cpoptions+=$ "put a $ sign at the end of range when changing text
+"set cpoptions+=$ "put a $ sign at the end of range when changing text
 
 set noshowfulltag "because showfulltag doesn't work well with longest completeopt!
 set completeopt=menu,longest
@@ -133,6 +140,9 @@ endfunc
 "up/down movement on wrapped lines
 nnoremap j gj
 nnoremap k gk
+
+nnoremap <C-W><C-O> <Nop>
+nnoremap <C-L> <Nop>
 
 "insert only one space when joining lines that contain punctuation
 set nojoinspaces
@@ -249,7 +259,7 @@ com! SudoWrite : call SudoWrite()
 "Set filetype for opencl files
 autocmd BufNewFile,BufRead *.cl setf cc
 "Set filetype for glsl files
-autocmd BufNewFile,BufRead *.vp,*.fp,*.gp,*.vs,*.fs,*.gs,*.tcs,*.tes,*.cs,*.vert,*.frag,*.geom,*.tess,*.shd,*.gls,*.glsl,*.sc set ft=glsl
+autocmd BufNewFile,BufRead *.vp,*.fp,*.gp,*.vs,*.fs,*.gs,*.tcs,*.tes,*.cs,*.vert,*.frag,*.geom,*.tess,*.shd,*.gls,*.glsl,*.fx,*.hlsl,*.sc,*.shdr set ft=glsl
 
 " ========================================================================
 " TODO area
@@ -343,8 +353,8 @@ endif
 " CtrlP
 " ========================================================================
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_max_depth = 4
-let g:ctrlp_max_files=10000
+let g:ctrlp_max_depth=10
+let g:ctrlp_max_files=200000
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_follow_symlinks=1
 let g:ctrlp_working_path_mode=0
@@ -483,7 +493,8 @@ endfun
 
 "show non-visual chars
 set listchars=
-if (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8') && version >= 700
+set encoding=utf-8
+if version >= 700
 	set listchars+=tab:×­
 	set listchars+=extends:»
 	set listchars+=precedes:«
