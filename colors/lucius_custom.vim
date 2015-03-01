@@ -235,7 +235,8 @@ hi VertSplit        ctermfg=242             ctermbg=237             cterm=none
 hi SignColumn       guifg=#9fafaf           guibg=#181818           gui=none
 hi SignColumn       ctermfg=145             ctermbg=233             cterm=none
 " line numbers
-hi LineNr           guifg=#818698           guibg=#363946
+"hi LineNr           guifg=#818698           guibg=#363946 (old value)
+hi LineNr           guifg=#818698           guibg=gray20
 " hi LineNr           ctermfg=245             ctermbg=237 (old value)
 hi LineNr           ctermfg=245             ctermbg=235
 

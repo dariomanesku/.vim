@@ -75,9 +75,10 @@ set ignorecase
 set smartcase
 
 set virtualedit=all "enable cursor navigation in virtual space
+set nostartofline "stay on the same column when moving up/down in visual mode
 
 set cindent
-set cino=g0b1:0
+set cino=b1,g0,:0,p0,t0,(0,u0,w1
 set smartindent "no effect when cindent is on
 
 set autoindent  "copy indent from current line when starging a new line
@@ -88,7 +89,7 @@ set preserveindent
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set noexpandtab
+set expandtab
 set smarttab
 
 "allow backspace over the start of insert
@@ -115,7 +116,7 @@ if has("gui_running")
 	let &guioptions="racg"
 	if has("win32")
 		set guifont=Lucida\ Console
-		winsize 190 70
+		set lines=999 columns=999
 	endif
 endif
 
@@ -313,7 +314,7 @@ nmap <silent> <leader>mJ :MirrorSplitBelow<CR>
 " ========================================================================
 " FSwitch
 " ========================================================================
-nmap <silent> ,sf :FSHere<CR>
+"nmap <silent> ,sf :FSHere<CR> "TODO
 nmap <silent> ,sl :FSRight<CR>
 nmap <silent> ,sL :FSSplitRight<CR>
 nmap <silent> ,sh :FSLeft<CR>
@@ -334,22 +335,6 @@ nmap <leader>mr :MRU<CR>
 " ========================================================================
 
 " ========================================================================
-" Ide / Project root
-" ========================================================================
-" search for '.vim_proj_root'. If found, setup path.
-let s:proj_root=findfile(".vim_proj_root", ".;/")
-if exists("s:proj_root") && filereadable(expand(s:proj_root))
-   exec 'set path+='.fnamemodify(expand(s:proj_root), ":h").'/**'
-endif
-
-" find and source '.ide.vim'
-let s:ide=findfile(".ide.vim", ".;/")
-if exists("s:ide") && filereadable(expand(s:ide))
-	exec "source ".s:ide
-endif
-" ========================================================================
-
-" ========================================================================
 " CtrlP
 " ========================================================================
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
@@ -358,7 +343,7 @@ let g:ctrlp_max_files=200000
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_follow_symlinks=1
 let g:ctrlp_working_path_mode=0
-let g:ctrlp_root_markers = ['.vim_proj_root']
+let g:ctrlp_root_markers = ['.vim']
 if has("unix")
 	let g:ctrlp_cache_dir = '~/.vim/.cache/ctrlp'
 elseif has("win32")
@@ -382,7 +367,7 @@ let g:ctrlp_switch_buffer = 'T' "go to buffer with ctrl-t
 " ========================================================================
 " ProjectRoot
 " ========================================================================
-let g:rootmarkers = ['.vim_proj_root', '.git']
+let g:rootmarkers = ['.vim', '.git']
 nnoremap <leader>cr    :ProjectRootCD<cr>
 nnoremap <leader>grep  :ProjectRootExe grep<space>
 nnoremap <leader>vgrep :ProjectRootExe vimgrep<space>
@@ -407,37 +392,37 @@ com! CtagsRoot :call CtagsRoot()
 " ========================================================================
 " CScope "TODO !
 " ========================================================================
-if has("cscope")
-	set nocscopetag
-	set csto=1
-	set cscopeverbose
-
-	"" add any cscope database in current directory
-	"if filereadable("cscope.out")
-	"    cs add cscope.out
-	"" else add the database pointed to by environment variable
-	"elseif $CSCOPE_DB != ""
-	"    cs add $CSCOPE_DB
-	"endif
-
-	"change this if it gets slow
-	function! LoadCscope()
-		let db = findfile("cscope.out", ".;")
-		if (!empty(db))
-			let path = strpart(db, 0, match(db, "/cscope.out$"))
-			set nocscopeverbose " suppress 'duplicate connection' error
-			exe "cs add " . db . " " . path
-			set cscopeverbose
-		else
-			set nocscopeverbose " suppress 'duplicate connection' error
-			cs add $CSCOPE_DB
-			set cscopeverbose
-		endif
-	endfunction
-
-	"DON'T call cscope on BufEnter
-	au BufEnter /* call LoadCscope()
-endif
+"if has("cscope")
+"	set nocscopetag
+"	set csto=1
+"	set cscopeverbose
+"
+"	"" add any cscope database in current directory
+"	"if filereadable("cscope.out")
+"	"    cs add cscope.out
+"	"" else add the database pointed to by environment variable
+"	"elseif $CSCOPE_DB != ""
+"	"    cs add $CSCOPE_DB
+"	"endif
+"
+"	"change this if it gets slow
+"	function! LoadCscope()
+"		let db = findfile("cscope.out", ".;")
+"		if (!empty(db))
+"			let path = strpart(db, 0, match(db, "/cscope.out$"))
+"			set nocscopeverbose " suppress 'duplicate connection' error
+"			exe "cs add " . db . " " . path
+"			set cscopeverbose
+"		else
+"			set nocscopeverbose " suppress 'duplicate connection' error
+"			cs add $CSCOPE_DB
+"			set cscopeverbose
+"		endif
+"	endfunction
+"
+"	"DON'T call cscope on BufEnter
+"	au BufEnter /* call LoadCscope()
+"endif
 " ========================================================================
 
 " ========================================================================
@@ -786,4 +771,82 @@ endfunc
 function! Redraw()
 	redraw!
 endfunc
+" ========================================================================
+
+" ========================================================================
+" Path, ide and file switch.
+" ========================================================================
+set path=.,,**
+let s:default_path = &path
+
+let s:currRoot = ''
+
+function! s:PathFunc()
+    " Search for '.vim'.
+    let s:vimRoot=findfile(".vimfs", ".;/")
+    if exists("s:vimRoot") && filereadable(expand(s:vimRoot))
+       exec 'set path-='.s:currRoot
+       let s:currRoot = fnamemodify(expand(s:vimRoot), ":p:h").'/**'
+       exec 'set path+='.s:currRoot
+    else
+       " Search for '.git'.
+       let s:gitRoot=findfile(".git", ".;/")
+       if exists("s:gitRoot") && filereadable(expand(s:gitRoot))
+          exec 'set path-='.s:currRoot
+          let s:currRoot = fnamemodify(expand(s:gitRoot), ":p:h").'/**'
+          exec 'set path+='.s:currRoot
+       endif
+    endif
+
+    " Find and source '.ide.vim'
+    let s:ide=findfile(".ide.vim", ".;/")
+    if exists("s:ide") && filereadable(expand(s:ide))
+        exec "source ".s:ide
+    endif
+endfunction
+
+autocmd BufRead * call s:PathFunc()
+
+com! FileSwitch :call FileSwitch()
+nmap <silent> ,sf :FileSwitch<CR>
+
+" \zs == start match
+" \ze == end match
+" <f> gets replaced with the matched name
+let s:dict = { 'h'   : { '\zs.*\ze_cpp' : ['<f>.h'],
+             \           '\zs.*\ze'     : ['<f>_cpp.h', '<f>.cpp' ], },
+             \
+             \ 'cpp' : { '\zs.*\ze'     : ['<f>.h'] },
+             \
+             \ 'sc'  : { 'vs_\zs.*\ze' : ['fs_<f>.sc'],
+             \           'fs_\zs.*\ze' : ['vs_<f>.sc'], },
+             \
+             \}
+
+function! FileSwitch()
+    let name    = expand('%:r')
+    let ext     = expand('%:e')
+
+    let dict = get(s:dict, ext, {0:0})
+    if has_key(dict,0)
+        return
+    endif
+
+    for [pattern,matches] in items(dict)
+        let basename = matchstr(name, '\v'.pattern)
+        if !empty(basename)
+            for item in matches
+                let lookFor = substitute(item, '<f>', basename, '')
+                let file = findfile(lookFor, &path)
+                if exists("file") && filereadable(file)
+                    execute "edit " . fnameescape(file)
+                    return
+                endif
+            endfor
+            let first = substitute(matches[0], '<f>', basename, '')
+            execute "edit " . fnameescape(first)
+        endif
+    endfor
+
+endfunction
 " ========================================================================
