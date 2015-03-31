@@ -315,14 +315,14 @@ nmap <silent> <leader>mJ :MirrorSplitBelow<CR>
 " FSwitch
 " ========================================================================
 "nmap <silent> ,sf :FSHere<CR> "TODO
-nmap <silent> ,sl :FSRight<CR>
-nmap <silent> ,sL :FSSplitRight<CR>
-nmap <silent> ,sh :FSLeft<CR>
-nmap <silent> ,sH :FSSplitLeft<CR>
-nmap <silent> ,sk :FSAbove<CR>
-nmap <silent> ,sK :FSSplitAbove<CR>
-nmap <silent> ,sj :FSBelow<CR>
-nmap <silent> ,sJ :FSSplitBelow<CR>
+"nmap <silent> ,sl :FSRight<CR>
+"nmap <silent> ,sL :FSSplitRight<CR>
+"nmap <silent> ,sh :FSLeft<CR>
+"nmap <silent> ,sH :FSSplitLeft<CR>
+"nmap <silent> ,sk :FSAbove<CR>
+"nmap <silent> ,sK :FSSplitAbove<CR>
+"nmap <silent> ,sj :FSBelow<CR>
+"nmap <silent> ,sJ :FSSplitBelow<CR>
 " ========================================================================
 
 " ========================================================================
