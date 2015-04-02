@@ -85,6 +85,8 @@ set autoindent  "copy indent from current line when starging a new line
 set copyindent
 set preserveindent
 
+set autoread
+
 "tabs
 set tabstop=4
 set softtabstop=4
