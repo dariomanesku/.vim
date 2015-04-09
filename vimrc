@@ -593,29 +593,6 @@ let g:rainbow_active = 0
 " ========================================================================
 
 " ========================================================================
-" NERDTree (not using this any more!)
-" ========================================================================
-"let NERDTreeShowHidden=1
-"let NERDTreeWinSize=40
-"function! OpenNerdTree()
-"	if exists("t:NERDTreeBufName") == 0
-"		exec 'NERDTree'
-"		return
-"	endif
-"
-"	if bufwinnr(t:NERDTreeBufName) != -1
-"		exec 'NERDTreeToggle'
-"		exec 'NERDTreeToggle'
-"	else
-"		exec 'NERDTree'
-"	endif
-"endfunction
-"nmap <leader>nc :NERDTreeClose<CR>
-"nmap <leader>nh :NERDTreeClose<CR>:NERDTree<CR>
-"nmap <leader>nn :call OpenNerdTree()<CR>
-" ========================================================================
-
-" ========================================================================
 " Netrw
 " ========================================================================
 " let g:netrw_altv           = 1
