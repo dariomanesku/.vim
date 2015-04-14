@@ -100,6 +100,7 @@ set autochdir
 "autocmd BufEnter * silent! lcd %:p:h
 "map <leader>cd :lcd %:h<CR>
 
+" TODO: this does not appear to work from terminal:
 set autoread "auto reload file contents on external change
 
 "set cpoptions+=$ "put a $ sign at the end of range when changing text
