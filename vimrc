@@ -722,16 +722,6 @@ au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
 " ========================================================================
 
 " ========================================================================
-" Easymotion (not in use atm)
-" ========================================================================
-"hi link EasyMotionTarget ErrorMsg
-"hi link EasyMotionShade  Comment
-"let g:EasyMotion_leader_key = 'f'
-"let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
-"cmap E<cr> Ex<cr>
-" ========================================================================
-
-" ========================================================================
 " Functions for 'vim --remote-expr'
 " ========================================================================
 function! PrintBuildSuccessful()
