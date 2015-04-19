@@ -25,7 +25,6 @@ Bundle 'https://github.com/vim-scripts/Align'
 Bundle 'https://github.com/vim-scripts/undo_tags'
 Bundle 'https://github.com/tomtom/tcomment_vim'
 Bundle 'https://github.com/ntpeters/vim-better-whitespace'
-Bundle 'https://github.com/luochen1990/rainbow'
 Bundle 'https://github.com/vim-scripts/listmaps.vim'
 Bundle 'https://github.com/vim-scripts/ScrollColors'
 
@@ -585,12 +584,6 @@ let g:gundo_preview_height = 40
 let g:gundo_right = 1
 let g:gundo_close_on_revert = 0 "set this to 1 to automatically close the Gundo windows when reverting.
 "let g:gundo_preview_bottom = 1
-" ========================================================================
-
-" ========================================================================
-" Rainbow
-" ========================================================================
-let g:rainbow_active = 0
 " ========================================================================
 
 " ========================================================================
