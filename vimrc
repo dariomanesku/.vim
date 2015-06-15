@@ -117,6 +117,9 @@ if has("gui_running")
 	if has("win32")
 		set guifont=Lucida\ Console
 		set lines=999 columns=999
+	else
+		set guifont=Monospace\ 8
+		set lines=83 columns=333
 	endif
 endif
 
