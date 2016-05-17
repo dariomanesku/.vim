@@ -145,8 +145,9 @@ endfunc
 nnoremap j gj
 nnoremap k gk
 
-nnoremap <C-W><C-O> <Nop>
-nnoremap <C-L> <Nop>
+nnoremap <c-w>o <nop>
+nnoremap <c-w><c-o> <nop>
+nnoremap <c-l> <nop>
 
 "insert only one space when joining lines that contain punctuation
 set nojoinspaces
@@ -745,9 +746,9 @@ let s:default_path = &path
 
 let s:currRoot = ''
 
-function! s:PathFunc()
+function! PathFunc()
     " Search for '.vim'.
-    let s:vimRoot=findfile(".vimfs", ".;/")
+    let s:vimRoot=findfile(".vimroot", ".;/")
     if exists("s:vimRoot") && filereadable(expand(s:vimRoot))
        exec 'set path-='.s:currRoot
        let s:currRoot = fnamemodify(expand(s:vimRoot), ":p:h").'/**'
@@ -769,7 +770,7 @@ function! s:PathFunc()
     endif
 endfunction
 
-autocmd BufRead * call s:PathFunc()
+autocmd BufRead * call PathFunc()
 
 " \zs == start match
 " \ze == end match
