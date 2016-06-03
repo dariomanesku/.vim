@@ -3,9 +3,11 @@ filetype off
 
 if has("unix")
 	set runtimepath+=~/.vim/bundle/vundle/
+	set runtimepath+=~/.fzf
 	call vundle#rc()
 elseif has("win32")
 	set runtimepath+=~\vimfiles\bundle\vundle
+	" TODO: add fzf for Windows.
 	call vundle#rc('$HOME/vimfiles/bundle')
 endif
 
