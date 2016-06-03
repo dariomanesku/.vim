@@ -340,17 +340,6 @@ nmap <leader>mr :MRU<CR>
 " ========================================================================
 
 " ========================================================================
-" ProjectRoot
-" ========================================================================
-let g:rootmarkers = ['.vim', '.git']
-nnoremap <leader>cr    :ProjectRootCD<cr>
-nnoremap <leader>grep  :ProjectRootExe grep<space>
-nnoremap <leader>vgrep :ProjectRootExe vimgrep<space>
-nnoremap <leader>ack   :ProjectRootExe Ack<space>
-nnoremap <leader>ag    :ProjectRootExe Ag<space>
-" ========================================================================
-
-" ========================================================================
 " Ctags
 " ========================================================================
 set tags=./tags;/
@@ -362,6 +351,18 @@ function! CtagsRoot()
 endfunc
 com! CtagsHere :call CtagsHere()
 com! CtagsRoot :call CtagsRoot()
+" ========================================================================
+
+" ========================================================================
+" ProjectRoot
+" ========================================================================
+let g:rootmarkers = ['.vim', '.git']
+nnoremap <leader>cr    :ProjectRootCD<cr>
+nnoremap <leader>grep  :ProjectRootExe grep<space>
+nnoremap <leader>vgrep :ProjectRootExe vimgrep<space>
+nnoremap <leader>ack   :ProjectRootExe Ack<space>
+nnoremap <leader>ag    :ProjectRootExe Ag<space>
+nnoremap <leader>pp    :ProjectRootExe FZF<cr>
 " ========================================================================
 
 " ========================================================================
