@@ -14,8 +14,8 @@ endif
 Bundle 'https://github.com/gmarik/vundle'
 
 Bundle 'https://github.com/mileszs/ack.vim'
+Bundle 'https://github.com/junegunn/fzf.vim'
 Bundle 'https://github.com/vim-scripts/grep.vim'
-Bundle 'https://github.com/rking/ag.vim'
 Bundle 'https://github.com/dbakker/vim-projectroot'
 Bundle 'https://github.com/sjl/gundo.vim'
 Bundle 'https://github.com/vim-scripts/mru.vim'
