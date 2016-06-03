@@ -52,14 +52,14 @@ set hidden       " enable unsaved buffers
 set showmatch    " show matching braces
 
 set cursorline
-" highlight only current window
+" Highlight only current window.
 augroup CursorLine
 au!
 au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
 au WinLeave * setlocal nocursorline
 augroup END
 
-"no error bells
+" No error bells.
 set noeb vb t_vb=
 autocmd GUIEnter * set vb t_vb=
 autocmd VimEnter * set vb t_vb=
@@ -71,36 +71,49 @@ set scrolloff=8
 "make :W same as :w
 cnoreabbrev W w
 
-set ignorecase
-set smartcase
+" Up/down movement on wrapped lines.
+nnoremap j gj
+nnoremap k gk
 
-set virtualedit=all "enable cursor navigation in virtual space
-set nostartofline "stay on the same column when moving up/down in visual mode
+" Prevent a accidentally hitting these:
+nnoremap <c-w>o <nop>
+nnoremap <c-w><c-o> <nop>
+nnoremap <c-l> <nop>
+
+" Insert only one space when joining lines that contain punctuation
+set nojoinspaces
+
+set ignorecase "When searching, 'cat' will match both 'CAt' and 'cat'.
+set smartcase  "Overrides ignorecase. When searching, 'cat' will match both 'CAt' and 'cat', but 'cAt' will only match 'cAt'.
+
+set virtualedit=all "Enable cursor navigation in virtual space.
+set nostartofline "Stay on the same column when moving up/down in visual mode.
 
 set cindent
-set cino=b1,g0,:0,p0,t0,(0,u0,w1
-set smartindent "no effect when cindent is on
+"set cino=b1,g0,:0,p0,t0,(0,u0,w1 "TODO: this is the old one.
+set cino=b1,g0,p0,t0,(0,u0,w1,l1
+set smartindent "No effect when cindent is on.
 
-set autoindent  "copy indent from current line when starging a new line
+set autoindent  "Copy indent from current line when starging a new line.
 set copyindent
 set preserveindent
 
-"tabs
+" Tabs.
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set expandtab
 set smarttab
 
-"allow backspace over the start of insert
+" Allow backspace over the start of insert.
 set backspace=start,indent,eol
 
-"chdir settings
+" Chdir settings.
 set autochdir
 "autocmd BufEnter * silent! lcd %:p:h
 "map <leader>cd :lcd %:h<CR>
 
-" TODO: this does not appear to work from terminal:
+" TODO: this does not appear to work from terminal.
 set autoread "auto reload file contents on external change
 
 "set cpoptions+=$ "put a $ sign at the end of range when changing text
@@ -112,7 +125,7 @@ set complete-=t "do not search tags (completeopt doesn't work well with some gen
 
 set laststatus=2 "always show status line
 
-"gVim
+" GVim.
 if has("gui_running")
 	let &guioptions="racg"
 	if has("win32")
@@ -142,18 +155,7 @@ function! ToggleGUI()
 	endif
 endfunc
 
-"up/down movement on wrapped lines
-nnoremap j gj
-nnoremap k gk
-
-nnoremap <c-w>o <nop>
-nnoremap <c-w><c-o> <nop>
-nnoremap <c-l> <nop>
-
-"insert only one space when joining lines that contain punctuation
-set nojoinspaces
-
-"show this sign at the beginning of each wrapped line
+" Show this sign at the beginning of each wrapped line.
 set showbreak=°°
 
 set display=""
@@ -165,53 +167,67 @@ set mouse=""
 set splitbelow
 set splitright
 
-"use hlsearch but don't enable it by default
+" Use hlsearch but don't enable it by default.
 set hlsearch
 nohlsearch
 nmap <silent> <leader>, :silent :nohlsearch<CR>
 vmap <silent> <leader>, <Esc><C-o>:nohlsearch<CR>gv
 
-"use English language for spell checking but don't enable it by default
+" Use English language for spell checking but don't enable it by default.
 set spelllang=en_us
 set nospell
-map <F3> :set nospell!<CR>
 
-set wildmenu                   " use wildmenu
-set wildmode=list:longest,full " shell like behavior
+set wildmenu                   "Use wildmenu.
+set wildmode=list:longest,full "Shell like behavior.
 
-"avoid the evil 'Ex' mode.
+" Avoid the evil 'Ex' mode.
 noremap Q <Nop>
 
 map <S-Insert> <MiddleMouse>
 map! <S-Insert> <MiddleMouse>
 
-" makes ctrl+j/k scroll history in command line
+" Makes ctrl+j/k scroll history in command line.
 cnoremap <C-j> <t_kd>
 cnoremap <C-k> <t_ku>
 cnoremap <C-h> <Home>
 cnoremap <C-l> <End>
 
-"remap ` to ' (it's more useful this way)
+" Remap ` to ' (it's more useful this way).
 nnoremap ' `
 nnoremap ` '
 vnoremap ' `
 vnoremap ` '
 
-"in Makefiles, don't expand tabs to spaces
+"nnoremap y' y`
+"nnoremap y` y'
+"vnoremap y' y`
+"vnoremap y` y'
+"
+"nnoremap d' d`
+"nnoremap d` d'
+"vnoremap d' d`
+"vnoremap d` d'
+"
+"nnoremap c' c`
+"nnoremap c` c'
+"vnoremap c' c`
+"vnoremap c` c'
+
+" In Makefiles, don't expand tabs to spaces.
 autocmd FileType make set noexpandtab
 
-"don't accidently hit this when using visual line selection
+" Don't accidently hit this when using visual line selection.
 map K k
 
-"insert timestamp
+" Insert timestamp.
 imap <F9> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
 
-" Copy current absolute file path to + register
+" Copy current absolute file path to + register.
 nmap <leader>cp :let @+ = expand("%:p")<CR>
 
 set shellslash
 set mousehide
-"use whis for bufers with a few lines
+" Use whis for bufers with a few lines.
 nmap <silent> ,rw :execute ":resize " . line('$')<cr>
 
 " Show numbers only in active buffer
@@ -219,14 +235,14 @@ set number
 :au WinEnter * :setlocal number
 :au WinLeave * :setlocal nonumber
 
-"dictionary
+" Dictionary.
 set dictionary+=/usr/share/dict/words
 
-"grep settings
+" Grep settings.
 set grepprg=grep\ -rnH\ --exclude='.*.swp'\ --exclude='*~'\ --exclude=tags
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 
-"setup tmp folder
+" Setup tmp folder.
 if has("unix")
 	let s:tmpdir = "~/.vim/.tmp"
 elseif has("win32")
@@ -238,7 +254,7 @@ endif
 exec "set backupdir=".expand(s:tmpdir)
 exec "set directory=".expand(s:tmpdir)
 
-"setup undo folder
+" Setup undo folder.
 if exists("+undofile")
 	au BufWritePre /tmp/* setlocal noundofile
 	if has("unix")
@@ -255,16 +271,16 @@ if exists("+undofile")
 	set undoreload=50000 "maximum number lines to save for undo on a buffer reload
 endif
 
-" Force saving files that require root permission
+" Force saving files that require root permission.
 function! SudoWrite()
 	:%!sudo tee > /dev/null %
 endfun
 cmap W!! w !sudo tee % >/dev/null
 com! SudoWrite : call SudoWrite()
 
-"Set filetype for opencl files
+" Set filetype for opencl files.
 autocmd BufNewFile,BufRead *.cl setf cc
-"Set filetype for glsl files
+" Set filetype for glsl files.
 autocmd BufNewFile,BufRead *.vp,*.fp,*.gp,*.vs,*.fs,*.gs,*.tcs,*.tes,*.cs,*.vert,*.frag,*.geom,*.tess,*.shd,*.gls,*.glsl,*.fx,*.hlsl,*.sc,*.shdr set ft=glsl
 
 " ========================================================================
@@ -277,12 +293,12 @@ autocmd BufNewFile,BufRead *.vp,*.fp,*.gp,*.vs,*.fs,*.gs,*.tcs,*.tes,*.cs,*.vert
 " set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
 
 "------- TODO: test this
-" handy substitution
+" Handy substitution.
 nnoremap & :'{,'}s/<c-r>=expand('<cword>')<cr>/
 vnoremap & "*y<Esc>:<c-u>'{,'}s/<c-r>=substitute(escape(@*, '\/.*$^~[]'), "\n", '\\n', "g")<cr>/
-" find current word in quickfix
+" Find current word in quickfix.
 nnoremap <leader>fw :execute "vimgrep ".expand("<cword>")." %"<cr>:copen<cr>
-" find last search in quickfix
+" Find last search in quickfix.
 nnoremap <leader>fs :execute 'vimgrep /'.@/.'/g %'<cr>:copen<cr>
 "------
 " ========================================================================
@@ -435,7 +451,7 @@ function! GetServerName()
 endfunc
 set statusline=#%n\ %f\%m\ [%p%%]\ >%v\ %l/%L\ [%b\ 0x%B]%=[%{getcwd()}]\ %{GetServerName()}
 
-"Status line with file size visualization (not working properly in split mode)
+" Status line with file size visualization (not working properly in split mode).
 func! STL()
 	" let stl = '%f [%{(&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?",B":"")}%M%R%H%W] %y [%l/%L,%v] [%p%%]'
 	let stl = '%f%m #%n >%v %l/%L[%p%%] [%b 0x%B]%=%{getcwd()}'
@@ -463,7 +479,7 @@ endfun
 " List chars
 " ========================================================================
 
-"show non-visual chars
+" Show non-visual chars.
 set listchars=
 set encoding=utf-8
 if version >= 700
@@ -613,25 +629,6 @@ function! NumberToggle()
 endfun
 command! -nargs=0 NumberToggle :call NumberToggle()
 nnoremap <leader>ln :call NumberToggle()<cr>
-
-function! OpenURL(url)
-	if has("win32")
-		exe "!start cmd /cstart /b ".a:url.""
-	elseif $DISPLAY !~ '^\w'
-		exe "silent !sensible-browser \"".a:url."\""
-	else
-		exe "silent !sensible-browser -T \"".a:url."\""
-	endif
-	redraw!
-endfunction
-
-function! GetLink()
-	let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;:]*')
-	return s:uri
-endfunction
-
-"open URL in browser
-nnoremap <leader>gL :call OpenURL(GetLink())<CR>
 
 " deletes all hidden buffers
 function! DeleteHiddenBuffers()
