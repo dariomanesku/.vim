@@ -13,7 +13,6 @@ endif
 
 Bundle 'https://github.com/gmarik/vundle'
 
-Bundle 'https://github.com/kien/ctrlp.vim'
 Bundle 'https://github.com/mileszs/ack.vim'
 Bundle 'https://github.com/vim-scripts/grep.vim'
 Bundle 'https://github.com/rking/ag.vim'
@@ -338,36 +337,6 @@ let MRU_Max_Entries = 1000
 let MRU_Exclude_Files = '^/tmp/.*\|^/var/tmp/.*'  " For Unix
 let MRU_Window_Height = 25
 nmap <leader>mr :MRU<CR>
-" ========================================================================
-
-" ========================================================================
-" CtrlP
-" ========================================================================
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_max_depth=10
-let g:ctrlp_max_files=200000
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_follow_symlinks=1
-let g:ctrlp_working_path_mode=0
-let g:ctrlp_root_markers = ['.vim']
-if has("unix")
-	let g:ctrlp_cache_dir = '~/.vim/.cache/ctrlp'
-elseif has("win32")
-	let g:ctrlp_cache_dir = '~\vimfiles\_cache/ctrlp'
-endif
-let g:ctrlp_max_height = 25
-" let g:ctrlp_clear_cache_on_exit=0
-
-let g:ctrlp_map = '<leader>pp'
-let g:ctrlp_cmd = 'CtrlPRoot'
-map <leader>pt :CtrlPBufTag<cr>
-" let g:ctrlp_custom_ignore = {
-"
-"   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-"   \ 'file': '\v\.(exe|so|dll|o)$',
-"   \ 'link': 'some_bad_symbolic_links',
-"   \ }
-let g:ctrlp_switch_buffer = 'T' "go to buffer with ctrl-t
 " ========================================================================
 
 " ========================================================================
