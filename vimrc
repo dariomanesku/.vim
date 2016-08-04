@@ -2,36 +2,36 @@ set nocompatible
 filetype off
 
 if has("unix")
-	set runtimepath+=~/.vim/bundle/vundle/
+	set runtimepath+=~/.vim/bundle/vundle
 	set runtimepath+=~/.fzf
-	call vundle#rc()
+	call vundle#begin('~/.vim/bundle')
 elseif has("win32")
 	set runtimepath+=~\vimfiles\bundle\vundle
 	" TODO: add fzf for Windows.
-	call vundle#rc('$HOME/vimfiles/bundle')
+	call vundle#begin('$HOME/vimfiles/bundle')
 endif
 
-Bundle 'https://github.com/gmarik/vundle'
+Plugin 'https://github.com/gmarik/vundle'
 
-Bundle 'https://github.com/mileszs/ack.vim'
-Bundle 'https://github.com/junegunn/fzf.vim'
-Bundle 'https://github.com/vim-scripts/grep.vim'
-Bundle 'https://github.com/dbakker/vim-projectroot'
-Bundle 'https://github.com/sjl/gundo.vim'
-Bundle 'https://github.com/vim-scripts/mru.vim'
-Bundle 'https://github.com/vim-scripts/glsl.vim'
-Bundle 'https://github.com/derekwyatt/vim-fswitch'
-Bundle 'https://github.com/vim-scripts/VisIncr'
-Bundle 'https://github.com/vim-scripts/Align'
-Bundle 'https://github.com/vim-scripts/undo_tags'
-Bundle 'https://github.com/tomtom/tcomment_vim'
-Bundle 'https://github.com/ntpeters/vim-better-whitespace'
-Bundle 'https://github.com/vim-scripts/listmaps.vim'
-Bundle 'https://github.com/vim-scripts/ScrollColors'
+Plugin 'https://github.com/mileszs/ack.vim'
+Plugin 'https://github.com/junegunn/fzf.vim'
+Plugin 'https://github.com/vim-scripts/grep.vim'
+Plugin 'https://github.com/dbakker/vim-projectroot'
+Plugin 'https://github.com/sjl/gundo.vim'
+Plugin 'https://github.com/vim-scripts/mru.vim'
+Plugin 'https://github.com/vim-scripts/glsl.vim'
+Plugin 'https://github.com/derekwyatt/vim-fswitch'
+Plugin 'https://github.com/vim-scripts/VisIncr'
+Plugin 'https://github.com/vim-scripts/Align'
+Plugin 'https://github.com/vim-scripts/undo_tags'
+Plugin 'https://github.com/ntpeters/vim-better-whitespace'
+Plugin 'https://github.com/vim-scripts/listmaps.vim'
+Plugin 'https://github.com/vim-scripts/ScrollColors'
 
-"Bundle 'https://github.com/Rip-Rip/clang_complete'
-Bundle 'https://github.com/vim-scripts/OmniCppComplete'
+"Plugin 'https://github.com/Rip-Rip/clang_complete'
+Plugin 'https://github.com/vim-scripts/OmniCppComplete'
 
+call vundle#end()
 filetype plugin indent on
 
 if has("win32") && !has("gui_running")
@@ -91,7 +91,7 @@ set nostartofline "Stay on the same column when moving up/down in visual mode.
 
 set cindent
 "set cino=b1,g0,:0,p0,t0,(0,u0,w1 "TODO: this is the old one.
-set cino=b1,g0,p0,t0,(0,u0,w1,l1
+set cino=l1,b1,g0,t0,(0,u0
 set smartindent "No effect when cindent is on.
 
 set autoindent  "Copy indent from current line when starging a new line.
@@ -358,12 +358,12 @@ nmap <leader>mr :MRU<CR>
 " ========================================================================
 " Fzf
 " ========================================================================
-let g:fzf_command_prefix = 'Fff'
+let g:fzf_command_prefix = 'FF'
 " Insert mode completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
+"imap <c-x><c-f> <plug>(fzf-complete-path)
+"imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+"imap <c-x><c-l> <plug>(fzf-complete-line)
 " ========================================================================
 
 " ========================================================================
@@ -388,7 +388,7 @@ nnoremap <leader>cr    :ProjectRootCD<cr>
 nnoremap <leader>grep  :ProjectRootExe grep<space>
 nnoremap <leader>vgrep :ProjectRootExe vimgrep<space>
 nnoremap <leader>ack   :ProjectRootExe Ack<space>
-nnoremap <leader>ag    :ProjectRootExe Ag<space>
+nnoremap <leader>ag    :ProjectRootExe FFAg<space>
 nnoremap <leader>pp    :ProjectRootExe FZF<cr>
 " ========================================================================
 
