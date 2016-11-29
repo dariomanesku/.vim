@@ -110,8 +110,8 @@ set backspace=start,indent,eol
 
 " Chdir settings.
 set autochdir
-"autocmd BufEnter * silent! lcd %:p:h
-"map <leader>cd :lcd %:h<CR>
+autocmd BufEnter * silent! lcd %:p:h
+map <leader>cd :lcd %:h<CR>
 
 " TODO: this does not appear to work from terminal.
 set autoread "auto reload file contents on external change
@@ -311,6 +311,7 @@ function! Mirror(command)
 	let l:escaped = substitute(l:oldpath,'[, ]\|\\[\, ]\@=','\\&','g')
 	execute a:command
 	execute 'e ' . l:escaped
+	execute 'lcd %:p:h'
 endfunction
 
 com! MirrorRight      : call Mirror('wincmd l')
