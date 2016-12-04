@@ -2,63 +2,37 @@ set nocompatible
 filetype off
 
 if has("unix")
-	set runtimepath+=~/.vim/bundle/vundle
-	set runtimepath+=~/.fzf
-	call vundle#begin('~/.vim/bundle')
-	Plugin 'https://github.com/gmarik/vundle'
-
-	Plugin 'https://github.com/mileszs/ack.vim'
-	Plugin 'https://github.com/junegunn/fzf.vim'
-	Plugin 'https://github.com/vim-scripts/grep.vim'
-	Plugin 'https://github.com/dbakker/vim-projectroot'
-	Plugin 'https://github.com/sjl/gundo.vim'
-	Plugin 'https://github.com/vim-scripts/mru.vim'
-	Plugin 'https://github.com/vim-scripts/glsl.vim'
-	Plugin 'https://github.com/derekwyatt/vim-fswitch'
-	Plugin 'https://github.com/vim-scripts/VisIncr'
-	Plugin 'https://github.com/vim-scripts/Align'
-	Plugin 'https://github.com/vim-scripts/undo_tags'
-	Plugin 'https://github.com/ntpeters/vim-better-whitespace'
-	Plugin 'https://github.com/vim-scripts/listmaps.vim'
-	Plugin 'https://github.com/vim-scripts/ScrollColors'
-
-	"Plugin 'https://github.com/Rip-Rip/clang_complete'
-	Plugin 'https://github.com/vim-scripts/OmniCppComplete'
-
-	call vundle#end()
+    set runtimepath+=~/.fzf
+    call plug#begin('~/.vim/plugged')
 elseif has("win32")
-	set runtimepath+=~\vimfiles\bundle\vundle
-	" TODO: add fzf for Windows.
-	call plug#begin('$HOME/vimfiles/plugged')
-	Plug 'https://github.com/gmarik/vundle'
-
-	Plug 'https://github.com/mileszs/ack.vim'
-	Plug 'https://github.com/junegunn/fzf.vim'
-	Plug 'https://github.com/vim-scripts/grep.vim'
-	Plug 'https://github.com/dbakker/vim-projectroot'
-	Plug 'https://github.com/sjl/gundo.vim'
-	Plug 'https://github.com/vim-scripts/mru.vim'
-	Plug 'https://github.com/vim-scripts/glsl.vim'
-	Plug 'https://github.com/derekwyatt/vim-fswitch'
-	Plug 'https://github.com/vim-scripts/VisIncr'
-	Plug 'https://github.com/vim-scripts/Align'
-	Plug 'https://github.com/vim-scripts/undo_tags'
-	Plug 'https://github.com/ntpeters/vim-better-whitespace'
-	Plug 'https://github.com/vim-scripts/listmaps.vim'
-	Plug 'https://github.com/vim-scripts/ScrollColors'
-
-	"Plug 'https://github.com/Rip-Rip/clang_complete'
-	Plug 'https://github.com/vim-scripts/OmniCppComplete'
-	call plug#end()
+    call plug#begin('$HOME/vimfiles/plugged')
 endif
+
+Plug 'https://github.com/junegunn/fzf.vim'
+Plug 'https://github.com/vim-scripts/grep.vim'
+Plug 'https://github.com/dbakker/vim-projectroot'
+Plug 'https://github.com/sjl/gundo.vim'
+Plug 'https://github.com/vim-scripts/mru.vim'
+Plug 'https://github.com/vim-scripts/glsl.vim'
+Plug 'https://github.com/derekwyatt/vim-fswitch'
+Plug 'https://github.com/vim-scripts/VisIncr'
+Plug 'https://github.com/vim-scripts/Align'
+Plug 'https://github.com/vim-scripts/undo_tags'
+Plug 'https://github.com/ntpeters/vim-better-whitespace'
+Plug 'https://github.com/vim-scripts/listmaps.vim'
+Plug 'https://github.com/vim-scripts/ScrollColors'
+
+"Plug 'https://github.com/Rip-Rip/clang_complete'
+"Plug 'https://github.com/vim-scripts/OmniCppComplete'
+call plug#end()
 
 filetype plugin indent on
 
 if has("win32") && !has("gui_running")
-	set term=xterm
-	set t_Co=256
-	let &t_AB="\e[48;5;%dm"
-	let &t_AF="\e[38;5;%dm"
+    set term=xterm
+    set t_Co=256
+    let &t_AB="\e[48;5;%dm"
+    let &t_AF="\e[38;5;%dm"
 endif
 
 colorscheme lucius_custom
@@ -147,32 +121,32 @@ set laststatus=2 "always show status line
 
 " GVim.
 if has("gui_running")
-	let &guioptions="racg"
-	if has("win32")
-		set guifont=Lucida\ Console
-		set lines=999 columns=999
-	else
-		set guifont=Monospace\ 8
-		set lines=83 columns=333
-	endif
+    let &guioptions="racg"
+    if has("win32")
+        set guifont=Lucida\ Console
+        set lines=999 columns=999
+    else
+        set guifont=Monospace\ 8
+        set lines=83 columns=333
+    endif
 endif
 
 function! ToggleGUI()
-	let l:guiopt_windows = "gmrLtT"
-	let l:guiopt_linux   = "agimrLtT"
-	let l:guiopt_plain   = "racg"
+    let l:guiopt_windows = "gmrLtT"
+    let l:guiopt_linux   = "agimrLtT"
+    let l:guiopt_plain   = "racg"
 
-	if &guioptions == l:guiopt_plain
-		if has("unix")
-			let &guioptions = l:guiopt_linux
-		elseif has("win32")
-			let &guioptions = l:guiopt_windows
-		else
-			echo "Unknown system."
-		endif
-	else
-		let &guioptions = l:guiopt_plain
-	endif
+    if &guioptions == l:guiopt_plain
+        if has("unix")
+            let &guioptions = l:guiopt_linux
+        elseif has("win32")
+            let &guioptions = l:guiopt_windows
+        else
+            echo "Unknown system."
+        endif
+    else
+        let &guioptions = l:guiopt_plain
+    endif
 endfunc
 
 " Show this sign at the beginning of each wrapped line.
@@ -264,36 +238,36 @@ let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 
 " Setup tmp folder.
 if has("unix")
-	let s:tmpdir = "~/.vim/.tmp"
+    let s:tmpdir = "~/.vim/.tmp"
 elseif has("win32")
-	let s:tmpdir = "~\\vimfiles\\_tmp"
+    let s:tmpdir = "~\\vimfiles\\_tmp"
 endif
 if !exists("s:tmpdir")
-	call mkdir(expand(s:tmpdir))
+    call mkdir(expand(s:tmpdir))
 endif
 exec "set backupdir=".expand(s:tmpdir)
 exec "set directory=".expand(s:tmpdir)
 
 " Setup undo folder.
 if exists("+undofile")
-	au BufWritePre /tmp/* setlocal noundofile
-	if has("unix")
-		let s:undodir="~/.vim/.undodir"
-	elseif has("win32")
-		let s:undodir="~\\vimfiles\\_undodir"
-	endif
-	if !exists("s:undodir")
-		call mkdir(expand(s:undodir))
-	endif
-	exec "set undodir=".expand(s:undodir)
-	set undofile
-	set undolevels=5000 "maximum number of changes that can be undone
-	set undoreload=50000 "maximum number lines to save for undo on a buffer reload
+    au BufWritePre /tmp/* setlocal noundofile
+    if has("unix")
+        let s:undodir="~/.vim/.undodir"
+    elseif has("win32")
+        let s:undodir="~\\vimfiles\\_undodir"
+    endif
+    if !exists("s:undodir")
+        call mkdir(expand(s:undodir))
+    endif
+    exec "set undodir=".expand(s:undodir)
+    set undofile
+    set undolevels=5000 "maximum number of changes that can be undone
+    set undoreload=50000 "maximum number lines to save for undo on a buffer reload
 endif
 
 " Force saving files that require root permission.
 function! SudoWrite()
-	:%!sudo tee > /dev/null %
+    :%!sudo tee > /dev/null %
 endfun
 cmap W!! w !sudo tee % >/dev/null
 com! SudoWrite : call SudoWrite()
@@ -327,11 +301,11 @@ nnoremap <leader>fs :execute 'vimgrep /'.@/.'/g %'<cr>:copen<cr>
 " Mirror settings
 " ========================================================================
 function! Mirror(command)
-	let l:oldpath = expand('%:p')
-	let l:escaped = substitute(l:oldpath,'[, ]\|\\[\, ]\@=','\\&','g')
-	execute a:command
-	execute 'e ' . l:escaped
-	execute 'lcd %:p:h'
+    let l:oldpath = expand('%:p')
+    let l:escaped = substitute(l:oldpath,'[, ]\|\\[\, ]\@=','\\&','g')
+    execute a:command
+    execute 'e ' . l:escaped
+    execute 'lcd %:p:h'
 endfunction
 
 com! MirrorRight      : call Mirror('wincmd l')
@@ -392,10 +366,10 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 " ========================================================================
 set tags=./tags;/
 function! CtagsHere()
-	exec '!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .'
+    exec '!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .'
 endfunc
 function! CtagsRoot()
-	:ProjectRootExe call CtagsHere()
+    :ProjectRootExe call CtagsHere()
 endfunc
 com! CtagsHere :call CtagsHere()
 com! CtagsRoot :call CtagsRoot()
@@ -468,30 +442,30 @@ nnoremap <leader>pp    :ProjectRootExe FZF<cr>
 " set statusline +=%f\%m\ #%n\ >%v\ %l/%L[%p%%]\ [%b\ 0x%B]%=%{getcwd()}
 
 function! GetServerName()
-	return v:servername
+    return v:servername
 endfunc
 set statusline=#%n\ %f\%m\ [%p%%]\ >%v\ %l/%L\ [%b\ 0x%B]%=[%{getcwd()}]\ %{GetServerName()}
 
 " Status line with file size visualization (not working properly in split mode).
 func! STL()
-	" let stl = '%f [%{(&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?",B":"")}%M%R%H%W] %y [%l/%L,%v] [%p%%]'
-	let stl = '%f%m #%n >%v %l/%L[%p%%] [%b 0x%B]%=%{getcwd()}'
-	let barWidth = &columns - 65 " <-- wild guess
-	let barWidth = barWidth < 3 ? 3 : barWidth
+    " let stl = '%f [%{(&fenc==""?&enc:&fenc).((exists("+bomb") && &bomb)?",B":"")}%M%R%H%W] %y [%l/%L,%v] [%p%%]'
+    let stl = '%f%m #%n >%v %l/%L[%p%%] [%b 0x%B]%=%{getcwd()}'
+    let barWidth = &columns - 65 " <-- wild guess
+    let barWidth = barWidth < 3 ? 3 : barWidth
 
-	if line('$') > 1
-		let progress = (line('.')-1) * (barWidth-1) / (line('$')-1)
-	else
-		let progress = barWidth/2
-	endif
+    if line('$') > 1
+        let progress = (line('.')-1) * (barWidth-1) / (line('$')-1)
+    else
+        let progress = barWidth/2
+    endif
 
-	" line + vcol + %
-	let pad = strlen(line('$'))-strlen(line('.')) + 3 - strlen(virtcol('.')) + 3 - strlen(line('.')*100/line('$'))
-	let bar = repeat(' ',pad).' [%1*%'.barWidth.'.'.barWidth.'('
-				\.repeat('-',progress )
-				\.'%2*0%1*'
-				\.repeat('-',barWidth - progress - 1).'%0*%)%<]'
-	return stl.bar
+    " line + vcol + %
+    let pad = strlen(line('$'))-strlen(line('.')) + 3 - strlen(virtcol('.')) + 3 - strlen(line('.')*100/line('$'))
+    let bar = repeat(' ',pad).' [%1*%'.barWidth.'.'.barWidth.'('
+                \.repeat('-',progress )
+                \.'%2*0%1*'
+                \.repeat('-',barWidth - progress - 1).'%0*%)%<]'
+    return stl.bar
 endfun
 "set statusline=%!STL()
 " ========================================================================
@@ -504,14 +478,14 @@ endfun
 set listchars=
 set encoding=utf-8
 if version >= 700
-	set listchars+=tab:×­
-	set listchars+=extends:»
-	set listchars+=precedes:«
-	set listchars+=nbsp:¬
-	"set listchars+=trail:·
-	"set listchars+=eol:¶
+    set listchars+=tab:×­
+    set listchars+=extends:»
+    set listchars+=precedes:«
+    set listchars+=nbsp:¬
+    "set listchars+=trail:·
+    "set listchars+=eol:¶
 else
-	set listchars+=tab:>_,trail:-,extends:>,precedes:<,eol:;
+    set listchars+=tab:>_,trail:-,extends:>,precedes:<,eol:;
 endif
 
 set list
@@ -520,23 +494,23 @@ nmap <leader>li :set list!<CR>
 let s:showAllChars = 0
 
 function! ShowAllChars()
-	set listchars+=trail:·
-	set listchars+=eol:¶
-	let s:showAllChars = 1
+    set listchars+=trail:·
+    set listchars+=eol:¶
+    let s:showAllChars = 1
 endfunc
 
 function! HideSpecialChars()
-	set listchars-=trail:·
-	set listchars-=eol:¶
-	let s:showAllChars = 0
+    set listchars-=trail:·
+    set listchars-=eol:¶
+    let s:showAllChars = 0
 endfunc
 
 function! ToggleChars()
-	if (s:showAllChars)
-		call HideSpecialChars()
-	else
-		call ShowAllChars()
-	endif
+    if (s:showAllChars)
+        call HideSpecialChars()
+    else
+        call ShowAllChars()
+    endif
 endfunc
 
 command! -nargs=0 ToggleChars  :call ToggleChars()
@@ -626,79 +600,79 @@ let g:netrw_special_syntax = 1
 " Custom functions
 " ========================================================================
 function! CloseHiddenBuffers()
-	" figure out which buffers are visible in any tab
-	let visible = {}
-	for t in range(1, tabpagenr('$'))
-		for b in tabpagebuflist(t)
-			let visible[b] = 1
-		endfor
-	endfor
-	" close any buffer that's loaded and not visible
-	for b in range(1, bufnr('$'))
-		if bufloaded(b) && !has_key(visible, b)
-			exe 'bd ' . b
-		endif
-	endfor
+    " figure out which buffers are visible in any tab
+    let visible = {}
+    for t in range(1, tabpagenr('$'))
+        for b in tabpagebuflist(t)
+            let visible[b] = 1
+        endfor
+    endfor
+    " close any buffer that's loaded and not visible
+    for b in range(1, bufnr('$'))
+        if bufloaded(b) && !has_key(visible, b)
+            exe 'bd ' . b
+        endif
+    endfor
 endfun
 
 function! NumberToggle()
-	if (&relativenumber == 1)
-		set number
-	else
-		set relativenumber
-	endif
+    if (&relativenumber == 1)
+        set number
+    else
+        set relativenumber
+    endif
 endfun
 command! -nargs=0 NumberToggle :call NumberToggle()
 nnoremap <leader>ln :call NumberToggle()<cr>
 
 " deletes all hidden buffers
 function! DeleteHiddenBuffers()
-	" list of *all* buffer numbers
-	let l:buffers = range(1, bufnr('$'))
+    " list of *all* buffer numbers
+    let l:buffers = range(1, bufnr('$'))
 
-	" what tab page are we in?
-	let l:currentTab = tabpagenr()
-	try
-		" go through all tab pages
-		let l:tab = 0
-		while l:tab < tabpagenr('$')
-			let l:tab += 1
+    " what tab page are we in?
+    let l:currentTab = tabpagenr()
+    try
+        " go through all tab pages
+        let l:tab = 0
+        while l:tab < tabpagenr('$')
+            let l:tab += 1
 
-			" go through all windows
-			let l:win = 0
-			while l:win < winnr('$')
-				let l:win += 1
-				" whatever buffer is in this window in this tab, remove it from
-				" l:buffers list
-				let l:thisbuf = winbufnr(l:win)
-				call remove(l:buffers, index(l:buffers, l:thisbuf))
-			endwhile
-		endwhile
+            " go through all windows
+            let l:win = 0
+            while l:win < winnr('$')
+                let l:win += 1
+                " whatever buffer is in this window in this tab, remove it from
+                " l:buffers list
+                let l:thisbuf = winbufnr(l:win)
+                call remove(l:buffers, index(l:buffers, l:thisbuf))
+            endwhile
+        endwhile
 
-		" if there are any buffers left, delete them
-		if len(l:buffers)
-			execute 'bwipeout' join(l:buffers)
-		endif
-	finally
-		" go back to our original tab page
-		execute 'tabnext' l:currentTab
-	endtry
+        " if there are any buffers left, delete them
+        if len(l:buffers)
+            execute 'bwipeout' join(l:buffers)
+        endif
+    finally
+        " go back to our original tab page
+        execute 'tabnext' l:currentTab
+    endtry
 endfunction
 
 function! Preserve(command)
-	" preparation: save last search, and cursor position.
-	let _s=@/
-	let l = line(".")
-	let c = col(".")
-	" do the business:
-	execute a:command
-	" clean up: restore previous search history, and cursor position
-	let @/=_s
-	call cursor(l, c)
+    " preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " do the business:
+    execute a:command
+    " clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
 endfunction
 
 function! StripTrailingWhitespace()
-	call Preserve("%s/\\s\\+$//e")
+    call Preserve("%s/\\s\\+$//e")
 endfunction
 
 :command! -range=% -nargs=0 Tab2Space execute '<line1>,<line2>s#^\t\+#\=repeat(" ", len(submatch(0))*' . &ts . ')'
@@ -723,19 +697,19 @@ au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
 " Functions for 'vim --remote-expr'
 " ========================================================================
 function! PrintBuildSuccessful()
-	echo 'Build successful.'
+    echo 'Build successful.'
 endfunc
 
 function! PrintBuildError()
-	echo 'Build Error!'
+    echo 'Build Error!'
 endfunc
 
 function! CGetFile(filename)
-	exec 'cgetfile '.a:filename
+    exec 'cgetfile '.a:filename
 endfunc
 
 function! Redraw()
-	redraw!
+    redraw!
 endfunc
 " ========================================================================
 
