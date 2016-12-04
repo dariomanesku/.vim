@@ -5,33 +5,53 @@ if has("unix")
 	set runtimepath+=~/.vim/bundle/vundle
 	set runtimepath+=~/.fzf
 	call vundle#begin('~/.vim/bundle')
+	Plugin 'https://github.com/gmarik/vundle'
+
+	Plugin 'https://github.com/mileszs/ack.vim'
+	Plugin 'https://github.com/junegunn/fzf.vim'
+	Plugin 'https://github.com/vim-scripts/grep.vim'
+	Plugin 'https://github.com/dbakker/vim-projectroot'
+	Plugin 'https://github.com/sjl/gundo.vim'
+	Plugin 'https://github.com/vim-scripts/mru.vim'
+	Plugin 'https://github.com/vim-scripts/glsl.vim'
+	Plugin 'https://github.com/derekwyatt/vim-fswitch'
+	Plugin 'https://github.com/vim-scripts/VisIncr'
+	Plugin 'https://github.com/vim-scripts/Align'
+	Plugin 'https://github.com/vim-scripts/undo_tags'
+	Plugin 'https://github.com/ntpeters/vim-better-whitespace'
+	Plugin 'https://github.com/vim-scripts/listmaps.vim'
+	Plugin 'https://github.com/vim-scripts/ScrollColors'
+
+	"Plugin 'https://github.com/Rip-Rip/clang_complete'
+	Plugin 'https://github.com/vim-scripts/OmniCppComplete'
+
+	call vundle#end()
 elseif has("win32")
 	set runtimepath+=~\vimfiles\bundle\vundle
 	" TODO: add fzf for Windows.
-	call vundle#begin('$HOME/vimfiles/bundle')
+	call plug#begin('$HOME/vimfiles/plugged')
+	Plug 'https://github.com/gmarik/vundle'
+
+	Plug 'https://github.com/mileszs/ack.vim'
+	Plug 'https://github.com/junegunn/fzf.vim'
+	Plug 'https://github.com/vim-scripts/grep.vim'
+	Plug 'https://github.com/dbakker/vim-projectroot'
+	Plug 'https://github.com/sjl/gundo.vim'
+	Plug 'https://github.com/vim-scripts/mru.vim'
+	Plug 'https://github.com/vim-scripts/glsl.vim'
+	Plug 'https://github.com/derekwyatt/vim-fswitch'
+	Plug 'https://github.com/vim-scripts/VisIncr'
+	Plug 'https://github.com/vim-scripts/Align'
+	Plug 'https://github.com/vim-scripts/undo_tags'
+	Plug 'https://github.com/ntpeters/vim-better-whitespace'
+	Plug 'https://github.com/vim-scripts/listmaps.vim'
+	Plug 'https://github.com/vim-scripts/ScrollColors'
+
+	"Plug 'https://github.com/Rip-Rip/clang_complete'
+	Plug 'https://github.com/vim-scripts/OmniCppComplete'
+	call plug#end()
 endif
 
-Plugin 'https://github.com/gmarik/vundle'
-
-Plugin 'https://github.com/mileszs/ack.vim'
-Plugin 'https://github.com/junegunn/fzf.vim'
-Plugin 'https://github.com/vim-scripts/grep.vim'
-Plugin 'https://github.com/dbakker/vim-projectroot'
-Plugin 'https://github.com/sjl/gundo.vim'
-Plugin 'https://github.com/vim-scripts/mru.vim'
-Plugin 'https://github.com/vim-scripts/glsl.vim'
-Plugin 'https://github.com/derekwyatt/vim-fswitch'
-Plugin 'https://github.com/vim-scripts/VisIncr'
-Plugin 'https://github.com/vim-scripts/Align'
-Plugin 'https://github.com/vim-scripts/undo_tags'
-Plugin 'https://github.com/ntpeters/vim-better-whitespace'
-Plugin 'https://github.com/vim-scripts/listmaps.vim'
-Plugin 'https://github.com/vim-scripts/ScrollColors'
-
-"Plugin 'https://github.com/Rip-Rip/clang_complete'
-Plugin 'https://github.com/vim-scripts/OmniCppComplete'
-
-call vundle#end()
 filetype plugin indent on
 
 if has("win32") && !has("gui_running")
