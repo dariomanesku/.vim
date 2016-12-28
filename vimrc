@@ -62,7 +62,13 @@ set history=10000
 
 set scrolloff=8
 
-"make :W same as :w
+" Current file:line.
+func! FileLine()
+    let @f=expand("%:p").":".line(".")
+endfunc
+noremap ,fl :call FileLine()<CR>
+
+" Make :W same as :w.
 cnoreabbrev W w
 
 " Up/down movement on wrapped lines.
