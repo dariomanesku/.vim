@@ -9,3 +9,4 @@ _undodir/*
 .cache/*
 _cache/*
 bundle/*
+plugged/*

@@ -21,6 +21,11 @@ Plug 'https://github.com/vim-scripts/undo_tags'
 Plug 'https://github.com/ntpeters/vim-better-whitespace'
 Plug 'https://github.com/vim-scripts/listmaps.vim'
 Plug 'https://github.com/vim-scripts/ScrollColors'
+Plug 'https://github.com/airblade/vim-gitgutter'
+
+let g:gitgutter_realtime = 0
+let g:gitgutter_eager = 0
+let g:gitgutter_signs = 0
 
 "Plug 'https://github.com/Rip-Rip/clang_complete'
 "Plug 'https://github.com/vim-scripts/OmniCppComplete'
@@ -111,7 +116,7 @@ set backspace=start,indent,eol
 " Chdir settings.
 set autochdir
 autocmd BufEnter * silent! lcd %:p:h
-map <leader>cd :lcd %:h<CR>
+map <leader>lcd :lcd %:h<CR>
 
 " TODO: this does not appear to work from terminal.
 set autoread "auto reload file contents on external change
@@ -594,11 +599,9 @@ let g:gundo_close_on_revert = 0 "set this to 1 to automatically close the Gundo 
 " Netrw
 " ========================================================================
 " let g:netrw_altv           = 1
-let g:netrw_fastbrowse     = 2
+let g:netrw_fastbrowse     = 0
 let g:netrw_keepdir        = 0
 let g:netrw_liststyle      = 3
-let g:netrw_retmap         = 1
-let g:netrw_silent         = 0
 let g:netrw_special_syntax = 1
 " ========================================================================
 
@@ -620,16 +623,6 @@ function! CloseHiddenBuffers()
         endif
     endfor
 endfun
-
-function! NumberToggle()
-    if (&relativenumber == 1)
-        set number
-    else
-        set relativenumber
-    endif
-endfun
-command! -nargs=0 NumberToggle :call NumberToggle()
-nnoremap <leader>ln :call NumberToggle()<cr>
 
 " deletes all hidden buffers
 function! DeleteHiddenBuffers()
