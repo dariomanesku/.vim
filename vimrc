@@ -11,7 +11,7 @@ elseif has("win32")
     Plug 'https://github.com/kien/ctrlp.vim'
 endif
 
-Plug 'https://github.com/junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'https://github.com/mileszs/ack.vim'
 Plug 'https://github.com/vim-scripts/grep.vim'
 Plug 'https://github.com/dbakker/vim-projectroot'
@@ -25,6 +25,7 @@ Plug 'https://github.com/vim-scripts/undo_tags'
 Plug 'https://github.com/ntpeters/vim-better-whitespace'
 Plug 'https://github.com/vim-scripts/listmaps.vim'
 Plug 'https://github.com/vim-scripts/ScrollColors'
+Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/airblade/vim-gitgutter'
 
 let g:gitgutter_realtime = 0
@@ -407,8 +408,8 @@ cnoreabbrev Ack Ack!
 " ProjectRoot
 " ========================================================================
 let g:rootmarkers = ['.vim', '.git']
-nnoremap <leader>rcd :ProjectRootCD<cr>
-nnoremap <leader>fcd :lcd %:p:h<cr>
+nnoremap <leader>dr :ProjectRootCD<cr>
+nnoremap <leader>df :lcd %:p:h<cr>
 
 function! ExternalGrep(grepprg)
     call inputsave()
@@ -431,10 +432,13 @@ endfunction
 command! -nargs=0 ExternalFzf :call ExternalFzf()
 
 if has("unix")
-    nnoremap <leader>pp :ProjectRootExe FZF<cr>
+    nnoremap <leader>ag  :ProjectRootExe FFAg<space>
+    nnoremap <leader>ack :ProjectRootExe Ack<space>
+    nnoremap <leader>pp  :ProjectRootExe FZF<cr>
 elseif has("win32")
     nnoremap <leader>pp :ProjectRootExe ExternalFzf<cr>
 endif
+
 " ========================================================================
 
 " ========================================================================
@@ -750,37 +754,37 @@ endfunc
 " ========================================================================
 " Path, ide and file switch.
 " ========================================================================
-"set path=.,,**
-"let s:default_path = &path
-"
-"let s:currRoot = ''
-"
-"function! PathFunc()
-"    " Search for '.vim'.
-"    let s:vimRoot=findfile(".vimroot", ".;/")
-"    if exists("s:vimRoot") && filereadable(expand(s:vimRoot))
-"       exec 'set path-='.s:currRoot
-"       let s:currRoot = fnamemodify(expand(s:vimRoot), ":p:h").'/**'
-"       exec 'set path+='.s:currRoot
-"    else
-"       " Search for '.git'.
-"       let s:gitRoot=findfile(".git", ".;/")
-"       if exists("s:gitRoot") && filereadable(expand(s:gitRoot))
-"          exec 'set path-='.s:currRoot
-"          let s:currRoot = fnamemodify(expand(s:gitRoot), ":p:h").'/**'
-"          exec 'set path+='.s:currRoot
-"       endif
-"    endif
-"
-"    " Find and source '.ide.vim'
-"    let s:ide=findfile(".ide.vim", ".;/")
-"    if exists("s:ide") && filereadable(expand(s:ide))
-"        exec "source ".s:ide
-"    endif
-"endfunction
-"
-"autocmd BufRead * call PathFunc()
-"
+set path=.,,**
+let s:default_path = &path
+
+let s:currRoot = ''
+
+function! PathFunc()
+    " Search for '.vim'.
+    let s:vimRoot=findfile(".vimroot", ".;/")
+    if exists("s:vimRoot") && filereadable(expand(s:vimRoot))
+       exec 'set path-='.s:currRoot
+       let s:currRoot = fnamemodify(expand(s:vimRoot), ":p:h").'/**'
+       exec 'set path+='.s:currRoot
+    else
+       " Search for '.git'.
+       let s:gitRoot=findfile(".git", ".;/")
+       if exists("s:gitRoot") && filereadable(expand(s:gitRoot))
+          exec 'set path-='.s:currRoot
+          let s:currRoot = fnamemodify(expand(s:gitRoot), ":p:h").'/**'
+          exec 'set path+='.s:currRoot
+       endif
+    endif
+
+    " Find and source '.ide.vim'
+    let s:ide=findfile(".ide.vim", ".;/")
+    if exists("s:ide") && filereadable(expand(s:ide))
+        exec "source ".s:ide
+    endif
+endfunction
+
+autocmd BufRead * call PathFunc()
+
 "" \zs == start match
 "" \ze == end match
 "" <f> gets replaced with the matched name
