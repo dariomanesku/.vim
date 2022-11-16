@@ -217,7 +217,7 @@ hi CursorLine       cterm=NONE              ctermbg=236             cterm=none
 
 " CUSTOM
 hi CursorLineNr     guibg=#404448           guifg=#858585           gui=none
-hi CursorLineNr     ctermfg=245             ctermbg=236
+hi CursorLineNr     ctermfg=245             ctermbg=236             cterm=none
 
 
 " Misc
