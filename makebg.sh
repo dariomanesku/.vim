@@ -16,6 +16,43 @@
 #	exec 'cd' l:curr_dir
 #endfunc
 
+# Example .ide.vim file:
+#
+#   if has("unix")
+#       set makeprg=make
+#
+#       let s:proj_name   = "proj_name"
+#       let s:proj_root   = expand("<sfile>:p:h")
+#       let s:makebg_file = s:proj_root."/.makebg.sh"
+#       let s:log_file    = s:proj_root."/make.log"
+#
+#       function! Build(compiler)
+#           let s:make_action  = "linux-".a:compiler."-debug64"
+#           let s:make_command = "make OPTS=-j8 ".s:proj_root." ".s:make_action
+#           let s:build_action = "!".s:makebg_file." ".v:servername." \"".s:make_command."\" ".s:log_file
+#           let curr_dir = getcwd()
+#           exec 'cd' s:proj_root
+#           exec s:build_action
+#           exec 'cd' curr_dir
+#       endfunc
+#
+#       function! Execute(compiler)
+#           let s:runtime_dir  = s:proj_root."/runtime"
+#           let s:exec_action  = "!../_build/linux64_".a:compiler."/bin/".s:proj_name."Debug"
+#           let curr_dir = getcwd()
+#           exec 'cd' s:runtime_dir
+#           exec s:exec_action
+#           exec 'cd' curr_dir
+#       endfunc
+#
+#       nmap ,rr :call Build("clang")<cr><cr>
+#       nmap ,rb :call Build("gcc")<cr><cr>
+#
+#       nmap ,ee :call Execute("clang")<cr>
+#       nmap ,eb :call Execute("gcc")<cr>
+#   endif
+#
+
 tempfile="$PWD/.make.tmp"
 currentdir=${PWD##*/}
 server="${1:-VIM}"

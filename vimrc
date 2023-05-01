@@ -828,3 +828,82 @@ autocmd BufRead * call PathFunc()
 "com! FileSwitch :call FileSwitch()
 "nmap <silent> ,sf :FileSwitch<CR>
 " ========================================================================
+
+" ========================================================================
+" C Macro toggle
+" ========================================================================
+fun! WrapInPoundIfZero()
+    '<-1put ='#if 0'
+    let end_text = "#endif"
+    '>put =end_text
+endf
+
+fun! WrapInPoundIfZeroTODO()
+    '<-1put ='#if 0// TODO:'
+    let end_text = "#endif"
+    '>put =end_text
+endf
+
+fun! TogglePoundIfZeroOrOne_Found()
+    if getline(".") =~ '#if 0'
+        :s/0/1/
+    else
+        :s/1/0/
+    endif
+endf
+
+fun! TogglePoundIfZeroOrOne()
+    let save_cursor = getcurpos()
+
+    let attemps=0
+    while attemps < 5
+        if getline(".") =~ '#if \(0\|1\)'
+            call TogglePoundIfZeroOrOne_Found()
+            break
+        endif
+        normal [#
+        let attemps+=1
+    endwhile
+
+    call setpos('.', save_cursor)
+endf
+
+fun! DeleteInactivePoundIfRegion_Found()
+
+    let pound_if_cursor = getcurpos()
+    if getline(".") =~ '#if 0'
+        normal %%dd
+        call setpos('.', pound_if_cursor)
+        normal V%d
+    else
+        normal %
+        normal V%d
+        call setpos('.', pound_if_cursor)
+        normal dd
+    endif
+endf
+
+fun! DeleteInactivePoundIfRegion()
+    let save_cursor = getcurpos()
+
+    let attemps=0
+    while attemps < 5
+        if getline(".") =~ '#if \(0\|1\)'
+            call DeleteInactivePoundIfRegion_Found()
+            break
+        endif
+        normal [#
+        let attemps+=1
+    endwhile
+
+    call setpos('.', save_cursor)
+endf
+
+vmap ,we  :<c-u>call WrapInPoundIfZero()<cr>
+nmap ,we  :call TogglePoundIfZeroOrOne()<cr>
+"imap ,we  <esc>:call TogglePoundIfZeroOrOne()<cr>
+
+nmap ,wd  :call DeleteInactivePoundIfRegion()<cr>
+"vmap ,wr  :<c-u>call RemoveNearestSurroundingPoundIfZero()<cr>
+
+" ========================================================================
