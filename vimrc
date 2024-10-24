@@ -27,16 +27,53 @@ Plug 'https://github.com/vim-scripts/listmaps.vim'
 Plug 'https://github.com/vim-scripts/ScrollColors'
 Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/airblade/vim-gitgutter'
+Plug 'https://github.com/jonathanfilip/vim-lucius'
+
+Plug 'https://github.com/rakr/vim-one'
+Plug 'https://github.com/JaySandhu/xcode-vim'
+Plug 'https://github.com/romainl/Apprentice/'
+
+Plug 'https://github.com/sheerun/vim-wombat-scheme'
+Plug 'sonph/onehalf', { 'rtp': 'vim' }
+Plug 'NLKNguyen/papercolor-theme'
+
+Plug 'fxn/vim-monochrome'
+Plug 'https://github.com/jaredgorski/fogbell.vim'
+Plug 'https://github.com/saulhoward/kaodam'
+
+Plug 'https://github.com/pbrisbin/vim-colors-off'
+Plug 'https://github.com/preservim/vim-colors-pencil'
+Plug 'https://github.com/owickstrom/vim-colors-paramount'
+Plug 'https://github.com/morhetz/gruvbox'
 
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 let g:gitgutter_signs = 0
+
+let g:gruvbox_contrast_dark='medium'
+let g:gruvbox_contrast_light='hard'
+
+"let g:gruvbox_undercurl=1
+"let g:gruvbox_underline=1
+"let g:gruvbox_inverse=1
+"let g:gruvbox_guisp_fallback='NONE'
+"let g:gruvbox_improved_strings=0
+"let g:gruvbox_improved_warnings=0
+"let g:gruvbox_termcolors=16
+"let g:gruvbox_invert_indent_guides=0
+"let g:gruvbox_invert_selection=0
 
 "Plug 'https://github.com/Rip-Rip/clang_complete'
 "Plug 'https://github.com/vim-scripts/OmniCppComplete'
 call plug#end()
 
 filetype plugin indent on
+
+if exists('+termguicolors')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    set termguicolors
+endif
 
 if has("win32") && !has("gui_running")
     set term=xterm
@@ -45,8 +82,6 @@ if has("win32") && !has("gui_running")
     let &t_AF="\e[38;5;%dm"
 endif
 
-colorscheme lucius_custom
-
 syntax on
 let mapleader = ","
 nmap <silent> ,ev :e $MYVIMRC<cr>
@@ -54,6 +89,28 @@ nmap <silent> ,sv :so $MYVIMRC<cr>
 
 set hidden       " enable unsaved buffers
 set showmatch    " show matching braces
+
+func! ThemeLight()
+   colorscheme fogbell_light_custom
+endfunc
+command! -nargs=0 ThemeLight :call ThemeLight()
+
+func! ThemeDark()
+    colorscheme fogbell
+endfunc
+command! -nargs=0 ThemeDark :call ThemeDark()
+
+"colorscheme lucius_custom
+colorscheme gruvbox
+"colorscheme paramount
+set background=dark
+"colorscheme lucius
+"LuciusDarkHighContrast
+"call ThemeDark()
+
+if filereadable(expand('~/.bg_light'))
+    set background=light
+endif
 
 set cursorline
 " Highlight only current window.
@@ -119,7 +176,7 @@ set smarttab
 set backspace=start,indent,eol
 
 " Chdir settings.
-"set autochdir
+set autochdir
 "autocmd BufEnter  * silent! lcd %:p:h
 "autocmd BufNew    * silent! lcd %:p:h
 "autocmd BufRead   * silent! lcd %:p:h
@@ -233,6 +290,9 @@ autocmd FileType make set noexpandtab
 
 " Don't accidently hit this when using visual line selection.
 map K k
+
+nmap ,bd :set background=dark<CR>
+nmap ,bl :set background=light<CR>
 
 " Insert timestamp.
 imap <F9> <C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
@@ -409,7 +469,8 @@ cnoreabbrev Ack Ack!
 " ========================================================================
 let g:rootmarkers = ['.vim', '.git']
 nnoremap <leader>dr :ProjectRootCD<cr>
-nnoremap <leader>df :lcd %:p:h<cr>
+"nnoremap <leader>df :lcd %:p:h<cr>
+nnoremap <leader>cd :lcd %:p:h<cr>
 
 function! ExternalGrep(grepprg)
     call inputsave()
@@ -651,16 +712,6 @@ let g:netrw_special_syntax = 1
 " ========================================================================
 " Custom functions
 " ========================================================================
-function! NumberToggle()
-    if (&relativenumber == 1)
-        set number
-    else
-        set relativenumber
-    endif
-endfun
-command! -nargs=0 NumberToggle :call NumberToggle()
-nnoremap <leader>ln :call NumberToggle()<cr>
-
 function! CloseHiddenBuffers()
     " figure out which buffers are visible in any tab
     let visible = {}
@@ -749,6 +800,17 @@ endfunc
 function! Redraw()
     redraw!
 endfunc
+
+function! BackgroundDark()
+    set background=dark
+    redraw!
+endfunc
+
+function! BackgroundLight()
+    set background=light
+    redraw!
+endfunc
+
 " ========================================================================
 
 " ========================================================================

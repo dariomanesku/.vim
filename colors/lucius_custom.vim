@@ -29,7 +29,7 @@ let colors_name="lucius_custom"
 
 " Base color
 " ----------
-hi Normal           guifg=#e0e0e0           guibg=#202020
+hi Normal           guifg=#e0e0e0           guibg=#262626
 hi Normal           ctermfg=253             ctermbg=235
 
 
@@ -309,7 +309,7 @@ hi IncSearch        guifg=#66ffff                                   gui=reverse
 hi IncSearch        ctermfg=87                                      cterm=reverse
 " hlsearch (last search pattern), also used for quickfix
 hi Search                                    guibg=#ffaa33          gui=none
-hi Search                                    ctermbg=185            cterm=none
+hi Search                                    ctermbg=186            cterm=none
 
 
 " Popup Menu
